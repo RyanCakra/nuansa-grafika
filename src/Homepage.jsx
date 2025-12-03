@@ -128,7 +128,7 @@ const NuansaGrafika = () => {
   }, [showScroll]);
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans scroll-smooth">
+    <div className="min-h-screen bg-gray-950 font-sans scroll-smooth">
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 bg-white shadow-xl z-50">
         <div className="container mx-auto px-4 py-3">
@@ -257,11 +257,8 @@ const NuansaGrafika = () => {
           </AnimatePresence>
         </div>
       </nav>
-
       <hr className="border-t border-gray-200" />
-
       {/* Hero */}
-
       <section id="home" className="pt-32 pb-20 bg-gray-900 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
           <div className="absolute w-96 h-96 bg-amber-400 rounded-full mix-blend-color-dodge blur-3xl opacity-30 top-1/4 left-1/4 animate-pulse"></div>
@@ -347,7 +344,6 @@ const NuansaGrafika = () => {
           </div>
         </div>
       </section>
-
       <hr className="border-t border-gray-200" />
       {/* Product Section */}
       <section id="products" className="py-20 bg-gray-50">
@@ -369,13 +365,12 @@ const NuansaGrafika = () => {
 
           {/* Produk Grid */}
           <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {filteredProducts.map((product, index) => (
                 <ProductCard key={product.id} product={product} onClick={() => setSelectedProduct(product)} index={index} />
               ))}
             </AnimatePresence>
 
-            {/* No Products Found State */}
             {filteredProducts.length === 0 && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="lg:col-span-4 text-center py-10 bg-white rounded-xl shadow-inner border border-amber-200">
                 <p className="text-xl text-gray-500 font-semibold">Produk di kategori ini belum tersedia.</p>
@@ -385,9 +380,7 @@ const NuansaGrafika = () => {
           </motion.div>
         </div>
       </section>
-
       <hr className="border-t border-gray-200" />
-
       {/* About Section */}
       <section id="about" className="py-20 bg-white">
         <div className="container mx-auto px-4">
@@ -437,11 +430,8 @@ const NuansaGrafika = () => {
           </div>
         </div>
       </section>
-
       <hr className="border-t border-gray-200" />
-
       {/* Contact Section */}
-
       <section id="contact" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
@@ -514,11 +504,7 @@ const NuansaGrafika = () => {
           </div>
         </div>
       </section>
-
       <hr className="border-t border-gray-200" />
-
-      {/* Footer */}
-
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
@@ -563,10 +549,8 @@ const NuansaGrafika = () => {
         <div className="container mx-auto px-4 mt-8 pt-6 border-t border-gray-700 text-center">
           <p className="text-gray-500 text-sm">© 2025 Nuansa Grafika. All rights reserved.</p>
         </div>
-      </footer>
-
+      </footer>{' '}
       {/* Floating Button */}
-
       <div className="fixed bottom-6 right-6 flex flex-row gap-3 z-[1000]">
         <motion.a
           href="https://wa.me/6281312088319?text=Halo%20Nuansa%20Grafika,%20saya%20ingin%20konsultasi%20mengenai%20cetak%20produk."
@@ -594,7 +578,6 @@ const NuansaGrafika = () => {
           )}
         </AnimatePresence>
       </div>
-
       {/* Product Modal */}
       <AnimatePresence>
         {selectedProduct && (
