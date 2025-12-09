@@ -914,11 +914,11 @@ const Homepage = () => {
 
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-gray-100 rounded-xl p-5 border-t-4 border-gray-900 shadow-md hover:shadow-lg transition-shadow">
-                  <div className="text-4xl font-extrabold text-gray-900 mb-1">5000+</div>
+                  <div className="text-4xl font-extrabold text-gray-900 mb-1">500+</div>
                   <div className="text-sm text-gray-700 font-medium">Project Selesai</div>
                 </div>
                 <div className="bg-gray-100 rounded-xl p-5 border-t-4 border-amber-500 shadow-md hover:shadow-lg transition-shadow">
-                  <div className="text-4xl font-extrabold text-amber-600 mb-1">100%</div>
+                  <div className="text-4xl font-extrabold text-amber-600 mb-1">99%</div>
                   <div className="text-sm text-gray-700 font-medium">Kepuasan Pelanggan</div>
                 </div>
               </div>
