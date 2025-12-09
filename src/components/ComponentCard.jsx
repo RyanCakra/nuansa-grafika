@@ -1,37 +1,63 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Phone, Mail, MapPin, Menu, Star, Check, ArrowRight, Sparkles } from 'lucide-react';
 
+// const containerVariants = {
+//   hidden: { opacity: 0 },
+//   visible: {
+//     opacity: 1,
+//     transition: {
+//       staggerChildren: 0.08,
+//       when: 'beforeChildren',
+//     },
+//   },
+// };
+
+// const cardVariants = {
+//   hidden: { opacity: 0, scale: 0.95, y: 20 },
+//   visible: {
+//     opacity: 1,
+//     scale: 1,
+//     y: 0,
+//     transition: { duration: 0.35, ease: 'easeOut' },
+//   },
+// };
+
 // Product Card Component
 const ProductCard = ({ product, onClick, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      layout // biarkan Framer Motion menghitung layout changes
+      initial={{ opacity: 0, y: 10 }} // entry sederhana
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
-      whileHover={{ y: -8, scale: 1.02 }}
+      exit={{ opacity: 0, y: 10 }}
+      transition={{ duration: 0.25, ease: 'easeOut', delay: index * 0.04 }}
+      whileHover={{ y: -6 }}
       onClick={onClick}
-      className="relative group cursor-pointer rounded-2xl bg-white shadow-lg hover:shadow-2xl overflow-hidden border-t-4 border-amber-400/0 hover:border-amber-500 transition-all duration-300"
+      className="relative group cursor-pointer rounded-2xl bg-white shadow-md hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-amber-400 transition-all duration-300"
     >
-      {/* Image */}
-      <div className="overflow-hidden h-48 md:h-64">
-        <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+      {/* Image area — TETAP dan konsisten tingginya */}
+      <div className="overflow-hidden h-64 md:h-72">
+        <img src={product.images?.[0] ?? product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
       </div>
 
       {/* Content */}
       <div className="p-5">
-        <h3 className="font-extrabold text-gray-900 text-xl mb-2 line-clamp-1">{product.name}</h3>
+        <h3 className="font-extrabold text-gray-900 text-lg mb-2 line-clamp-2">{product.name}</h3>
         <p className="text-amber-600 font-bold text-base mb-2">{product.price}</p>
-        <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
-        <div className="flex items-center mt-3">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} size={14} className="text-amber-400 fill-current" />
-          ))}
+        <p className="text-gray-600 text-sm line-clamp-2 mb-3">{product.description}</p>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-1">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={14} className="text-amber-400 fill-current" />
+            ))}
+          </div>
+          <span className="text-xs text-gray-500">{(product.images || []).length} Foto</span>
         </div>
       </div>
 
-      {/* CTA/Overlay */}
-      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+      {/* Overlay CTA */}
+      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
         <span className="bg-amber-400 text-gray-900 px-4 py-2 rounded-full font-bold shadow-xl flex items-center gap-2">
           Detail Produk <ArrowRight size={16} />
         </span>

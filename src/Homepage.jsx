@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Phone, Mail, MapPin, Menu, Star, Check, Package, FileText, Image, Shirt, Printer, Book, Sticker, Tag, ArrowRight, Sparkles, ChevronUp, MessageCircleMore, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
+import { X, Phone, Mail, MapPin, Menu, Star, Check, Package, FileText, Zap, Award, Image, Shirt, Printer, Book, Sticker, Tag, ArrowRight, Sparkles, ChevronUp, MessageCircleMore, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
+import ContactSection from './components/ContactSection';
 
-const NuansaGrafika = () => {
+const Homepage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [activeCategory, setActiveCategory] = useState('all');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Data
+  // kategori
   const categories = [
     { id: 'all', name: 'Semua Produk', icon: Package },
-    { id: 'yasin', name: 'Buku Yasin', icon: Book },
     { id: 'banner', name: 'Banner & Spanduk', icon: Image },
     { id: 'undangan', name: 'Undangan', icon: FileText },
+    { id: 'yasin', name: 'Buku Yasin', icon: Book },
     { id: 'merchandise', name: 'Merchandise', icon: Shirt },
     { id: 'lakban', name: 'Lakban Custom', icon: Tag },
     { id: 'stationery', name: 'Kop Surat & Kartu Nama', icon: Printer },
@@ -23,117 +24,200 @@ const NuansaGrafika = () => {
   ];
 
   const products = [
+    /* BUKU YASIN  */
     {
       id: 1,
-      name: 'Buku Yasin Premium',
+      name: 'Buku Yasin Hardcover Beludru Matte Paper',
       category: 'yasin',
-      price: 'Mulai dari Rp 15.000',
-      images: [
-        'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=800&fit=crop',
-      ],
-      description: 'Buku Yasin berkualitas premium untuk berbagai acara',
-      details: 'Dicetak menggunakan kertas HVS 70-80 gsm dengan kualitas terbaik. Cocok untuk acara pernikahan, khitanan, dan acara keagamaan lainnya.',
+      price: 'Mulai dari Rp 25.000 - Rp 35.000',
+      images: ['/assets/yasin/hcbl-1.jpg', '/assets/yasin/hcbl-2.jpg', '/assets/yasin/hcbl-3.jpg'],
+      description: 'Buku Yasin berkualitas premium untuk berbagai acara.',
+      details: 'Minimum pemesanan 35 buku. Lama pengerjaan 7 hari kerja setelah persetujuan cetak dan konfirmasi pembayaran.',
       specs: ['Kertas HVS/Bookpaper', 'Cover Art Carton', 'Laminasi Doff/Glossy', 'Hotprint Emas/Perak', 'Ukuran Custom', 'Desain Elegan'],
     },
     {
       id: 2,
-      name: 'Banner Tahan Cuaca',
-      category: 'banner',
-      price: 'Mulai dari Rp 25.000/m²',
-      images: [
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=800&fit=crop',
-      ],
-      description: 'Banner tahan cuaca untuk promosi indoor & outdoor',
-      details: 'Dicetak menggunakan bahan Flexi premium dengan tinta eco-solvent yang tahan lama. Dilengkapi finishing ring besi untuk pemasangan yang kuat.',
-      specs: ['Bahan Flexi Premium', 'Tahan Air & Cuaca', 'Finishing Ring Besi', 'Ukuran Custom', 'Warna Tajam', 'Tahan UV'],
+      name: 'Buku Yasin Matte Paper Glossy Hardcover RCP Bunga Berlian',
+      category: 'yasin',
+      price: 'Mulai dari Rp 25.000 - Rp 35.000',
+      images: ['/assets/yasin/hcbb-1.jpg', '/assets/yasin/hcbb-2.jpg', '/assets/yasin/hcbb-3.jpg'],
+      description: 'Buku Yasin Hardcover Exclusive dengan tampilan mewah, glossy, dan hiasan bunga berlian.',
+      details: 'Minimum pemesanan 35 buku. Lama pengerjaan 7 hari kerja setelah persetujuan cetak dan konfirmasi pembayaran.',
+      specs: ['Kertas HVS/Bookpaper', 'Cover Art Carton', 'Laminasi Doff/Glossy', 'Hotprint Emas/Perak', 'Ukuran Custom', 'Desain Elegan'],
     },
     {
       id: 3,
-      name: 'Undangan Pernikahan Mewah',
-      category: 'undangan',
-      price: 'Mulai dari Rp 3.000/lembar',
-      images: [
-        'https://images.unsplash.com/photo-1523218924458-d62f0acca98d?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&h=800&fit=crop',
-      ],
-      description: 'Undangan elegant dengan berbagai pilihan desain',
-      details: 'Tersedia berbagai kertas premium dengan finishing mewah. Desain dapat disesuaikan dengan tema acara Anda.',
-      specs: ['Kertas Premium', 'Finishing Mewah', 'Desain Custom', 'Bentuk Bervariasi', 'Emboss/Deboss', 'Hotprint'],
+      name: 'Buku Yasin Hard Cover Motif Kubah',
+      category: 'yasin',
+      price: 'Mulai dari Rp 25.000 - Rp 35.000',
+      images: ['/assets/yasin/hc-2.jpg', '/assets/yasin/hc-1.jpg', '/assets/yasin/hc-3.jpg'],
+      description: 'Buku Yasin Hardcover Exclusive dengan tampilan glossy bermotif kubah.',
+      details: 'Minimum pemesanan 35 buku. Lama pengerjaan 7 hari kerja setelah persetujuan cetak dan konfirmasi pembayaran.',
+      specs: ['Kertas HVS/Bookpaper', 'Cover Art Carton', 'Laminasi Doff/Glossy', 'Hotprint Emas/Perak', 'Ukuran Custom', 'Desain Elegan'],
     },
     {
       id: 4,
-      name: 'Sablon Mug & Tumbler',
-      category: 'merchandise',
-      price: 'Mulai dari Rp 20.000',
-      images: [
-        'https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1565345558062-5f492e7dc3a9?w=800&h=800&fit=crop',
-      ],
-      description: 'Sablon mug, tumbler, dan totebag berkualitas tinggi',
-      details: 'Menggunakan sublimation paper dan DTF film untuk hasil yang tajam dan tahan lama. Cocok untuk souvenir dan merchandise perusahaan.',
-      specs: ['Bahan Premium', 'Tinta Tidak Luntur', 'Heat Press', 'Hasil Tajam', 'Food Grade', 'Tahan Cuci'],
+      name: 'Buku Yasin dan Tahlil Soft Cover Custom',
+      category: 'yasin',
+      price: 'Mulai dari Rp 15.000 - Rp 25.000',
+      images: ['/assets/yasin/sc-1.jpg', '/assets/yasin/sc-2.jpg', '/assets/yasin/sc-3.jpg'],
+      description: 'Buku Yasin dan Tahlil dengan soft cover custom.',
+      details: 'Minimum pemesanan 35 buku. Lama pengerjaan 7 hari kerja setelah persetujuan cetak dan konfirmasi pembayaran.',
+      specs: ['Kertas HVS/Bookpaper', 'Soft Cover', 'Laminasi Doff/Glossy', 'Hotprint Emas/Perak', 'Ukuran Custom', 'Desain Elegan'],
     },
+
+    /* ============================
+       KOP SURAT & KARTU NAMA
+  ============================ */
     {
       id: 5,
-      name: 'Lakban Custom BOPP',
-      category: 'lakban',
-      price: 'Mulai dari Rp 8.000/roll',
-      images: [
-        'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1553531384-cc64ac80f931?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1578469550956-0e16b69c6a3d?w=800&h=800&fit=crop',
-      ],
-      description: 'Lakban dengan desain custom untuk branding',
-      details: 'Dibuat dari bahan BOPP berkualitas tinggi dengan lem yang kuat. Cocok untuk packaging dan branding bisnis Anda.',
-      specs: ['Bahan BOPP Kuat', 'Tahan Air', 'Branding Profesional', 'Lem Kuat', 'Warna Cerah', 'Ukuran Custom'],
+      name: 'Kartu Nama Premium',
+      category: 'stationery',
+      price: 'Mulai dari Rp 25.000 / box',
+      images: ['/assets/stationery/kn-3.jpg', '/assets/stationery/kn-1.jpg', '/assets/stationery/kn-2.jpg'],
+      description: 'Kartu nama premium untuk kebutuhan identitas bisnis.',
+      details: 'Minimum pemesanan 1 box (100 pcs). Lama pengerjaan 2–3 hari kerja.',
+      specs: ['Art Carton 260–310 gsm', 'Laminasi Doff/Glossy', 'Spot UV Opsional', 'Sudut Rounded Opsional', 'Full Color Cetak Digital'],
     },
     {
       id: 6,
-      name: 'Kop Surat & Kartu Nama Profesional',
+      name: 'Kop Surat Custom Profesional',
       category: 'stationery',
-      price: 'Mulai dari Rp 500/lembar',
-      images: [
-        'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1586167246683-d5a16c3f5f1e?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1560179406-e6445d98a6e2?w=800&h=800&fit=crop',
-      ],
-      description: 'Media cetak untuk identitas bisnis profesional',
-      details: 'Dicetak dengan kertas premium menggunakan mesin digital atau offset. Hasil warna tajam dan profesional.',
-      specs: ['Kertas Premium', 'Ukuran Standar', 'Warna Tajam', 'Cetak Digital/Offset', 'Laminasi Opsional', 'Spot UV'],
+      price: 'Mulai dari Rp 500 / lembar',
+      images: ['/assets/stationery/ks-1.jpg', '/assets/stationery/ks-2.jpg', '/assets/stationery/ks-3.jpeg'],
+      description: 'Kop surat custom untuk kebutuhan perusahaan, instansi, atau organisasi.',
+      details: 'Minimum pemesanan 100 lembar. Lama pengerjaan 2–3 hari kerja.',
+      specs: ['HVS 80–100 gsm', 'Cetak Full Color', 'Ukuran A4', 'Logo dan informasi custom', 'Hasil warna tajam'],
     },
+
+    /* ============================
+            LAKBAN CUSTOM
+  ============================ */
     {
       id: 7,
-      name: 'Buku Katalog Full Color',
-      category: 'publishing',
-      price: 'Mulai dari Rp 20.000',
-      images: [
-        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?w=800&h=800&fit=crop',
-      ],
-      description: 'Penerbitan buku dan majalah berkualitas tinggi',
-      details: 'Menggunakan HVS, Book Paper, atau Art Paper dengan cover laminasi doff/glossy. Perfect binding untuk hasil yang rapi dan profesional.',
-      specs: ['Kertas Berkualitas', 'Cover Laminasi', 'Perfect Binding', 'Full Color', 'Ukuran Custom', 'Spot UV'],
+      name: 'Lakban Custom BOPP 48mm',
+      category: 'lakban',
+      price: 'Mulai dari Rp 8.000 / roll',
+      images: ['/assets/lakban/lb-1.jpg', '/assets/lakban/lb-2.jpg', '/assets/lakban/lb-3.jpg'],
+      description: 'Lakban custom ukuran standar untuk kebutuhan packing.',
+      details: 'Minimum 36 roll. Pengerjaan 7 hari kerja.',
+      specs: ['Bahan BOPP', 'Lebar 48mm', 'Tinta Tidak Luntur', 'Cetak 1–3 Warna', 'Lem Kuat'],
     },
     {
       id: 8,
+      name: 'Lakban Custom BOPP 60mm',
+      category: 'lakban',
+      price: 'Mulai dari Rp 10.000 / roll',
+      images: ['/assets/lakban/lb-1.jpg', '/assets/lakban/lb-2.jpg', '/assets/lakban/lb-3.jpg'],
+      description: 'Lakban custom lebar untuk branding pengemasan.',
+      details: 'Minimum 36 roll. Pengerjaan 7 hari kerja.',
+      specs: ['BOPP Premium', 'Lebar 60mm', 'Cetak Full Custom', 'Waterproof', 'Lem Super Strong'],
+    },
+    {
+      id: 9,
+      name: 'Lakban Custom Fragile / Warning',
+      category: 'lakban',
+      price: 'Mulai dari Rp 9.000 / roll',
+      images: ['/assets/lakban/lbf-1.jpg'],
+      description: 'Lakban fragile khusus untuk kebutuhan pengiriman barang.',
+      details: 'Minimum 36 roll. Pengerjaan 7 hari kerja.',
+      specs: ['Bahan BOPP', 'Desain Peringatan “FRAGILE”', 'Warna Cerah', 'Tahan Air', 'Adhesive Kuat'],
+    },
+
+    /* ============================
+             MERCHANDISE
+  ============================ */
+    {
+      id: 10,
+      name: 'Mug Custom',
+      category: 'merchandise',
+      price: 'Mulai dari Rp 20.000',
+      images: ['/assets/merchandise/m-1.jpeg', '/assets/merchandise/m-2.jpeg', '/assets/merchandise/m-3.jpeg'],
+      description: 'Mug custom untuk souvenir dan merchandise perusahaan.',
+      details: 'Minimum pemesanan 12 pcs. Lama pengerjaan 3–5 hari kerja.',
+      specs: ['Bahan Keramik', 'Sablon Sublim', 'Tahan Panas', 'Warna Tajam', 'Food Grade'],
+    },
+    {
+      id: 11,
+      name: 'Totebag Custom',
+      category: 'merchandise',
+      price: 'Mulai dari Rp 18.000',
+      images: ['/assets/merchandise/t-1.jpeg', '/assets/merchandise/t-2.jpg', '/assets/merchandise/t-3.jpg'],
+      description: 'Totebag custom dengan bahan kuat dan desain bebas.',
+      details: 'Minimum 12 pcs. Pengerjaan 3–5 hari kerja.',
+      specs: ['Bahan Kanvas / Blacu', 'Sablon DTF / Plastisol', 'Jahit Rapi', 'Tahan Beban'],
+    },
+    // {
+    //   id: 12,
+    //   name: 'Topi Custom Bordir',
+    //   category: 'merchandise',
+    //   price: 'Mulai dari Rp 30.000',
+    //   images: [
+    //     '/assets/merchandise/sck-1.jpg',
+    //     '/assets/merchandise/sck-2.jpg',
+    //     '/assets/merchandise/sck-3.jpg',
+    //   ],
+    //   description: 'Topi custom bordir dengan bahan premium.',
+    //   details: 'Minimum 12 pcs. Lama pengerjaan 5–7 hari kerja.',
+    //   specs: ['Bordir Komputer', 'Bahan Drill / Twill', 'Warna Tidak Mudah Luntur', 'Ukuran Adjustable'],
+    // },
+    {
+      id: 13,
+      name: 'Tumbler Custom',
+      category: 'merchandise',
+      price: 'Mulai dari Rp 35.000',
+      images: ['/assets/merchandise/tb-1.png', '/assets/merchandise/tb-2.jpg', '/assets/merchandise/tb-3.jpg'],
+      description: 'Tumbler custom cocok untuk souvenir dan merchandise.',
+      details: 'Minimum 12 pcs. Lama pengerjaan 5 hari kerja.',
+      specs: ['Bahan Stainless / Plastik Premium', 'Cetak Full Color', 'Tahan Panas & Dingin', 'Food Grade'],
+    },
+
+    /* ============================
+        STIKER & LABEL CUSTOM
+  ============================ */
+    {
+      id: 14,
       name: 'Stiker Vinyl Custom',
       category: 'stiker',
-      price: 'Mulai dari Rp 2.000/lembar',
-      images: [
-        'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1609743522653-52354461eb27?w=800&h=800&fit=crop',
-        'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=800&fit=crop',
-      ],
-      description: 'Stiker custom untuk berbagai keperluan branding',
-      details: 'Dicetak dengan bahan vinyl premium menggunakan mesin cutting presisi. Waterproof dan tahan lama untuk outdoor maupun indoor.',
-      specs: ['Bahan Vinyl', 'Waterproof', 'Ukuran Custom', 'Cutting Presisi', 'Glossy/Matte', 'Tahan UV'],
+      price: 'Mulai dari Rp 2.000 / lembar',
+      images: ['/assets/stiker/s-1.jpg', '/assets/stiker/s-2.jpg'],
+      description: 'Stiker vinyl premium waterproof untuk indoor/outdoor.',
+      details: 'Minimum 50 lembar. Pengerjaan 2–3 hari kerja.',
+      specs: ['Bahan Vinyl', 'Waterproof', 'Cutting Presisi', 'Glossy / Matte', 'Tahan UV'],
+    },
+    {
+      id: 15,
+      name: 'Label Produk Custom',
+      category: 'stiker',
+      price: 'Mulai dari Rp 1.000 / pcs',
+      images: ['/assets/stiker/l-1.jpg', '/assets/stiker/l-2.jpg'],
+      description: 'Label custom untuk kemasan produk UMKM dan brand.',
+      details: 'Minimum 100 pcs. Pengerjaan 2–3 hari kerja.',
+      specs: ['Bahan Vinyl / Chromo', 'Finishing Glossy / Matte', 'Cetak Full Color', 'Cutting Custom'],
+    },
+
+    /* ============================
+         BUKU & MAJALAH
+  ============================ */
+    {
+      id: 16,
+      name: 'Buku Katalog Full Color',
+      category: 'publishing',
+      price: 'Mulai dari Rp 20.000',
+      images: ['/assets/publishing/bp-1.jpeg', '/assets/publishing/bp-2.jpeg'],
+      description: 'Cetak buku katalog full color dengan kualitas premium.',
+      details: 'Minimum pemesanan 10 buku. Pengerjaan 5–7 hari kerja.',
+      specs: ['HVS / Book Paper / Art Paper', 'Perfect Binding', 'Cover Laminasi Doff/Glossy', 'Full Color'],
+    },
+    {
+      id: 17,
+      name: 'Buku tulis Custom',
+      category: 'publishing',
+      price: 'Mulai dari Rp 18.000',
+      images: ['/assets/publishing/bt-1.jpeg', '/assets/publishing/bt-2.jpeg', '/assets/publishing/bt-3.jpeg'],
+      description: 'Majalah custom dengan layout profesional.',
+      details: 'Minimum 10 buku. Pengerjaan 5–7 hari kerja.',
+      specs: ['Kertas Art Paper', 'Staple Binding / Perfect Binding', 'Full Color', 'Desain Layout Custom'],
     },
   ];
 
@@ -176,10 +260,62 @@ const NuansaGrafika = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+      scale: 0.95,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+        damping: 15,
+        duration: 0.4,
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.95,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
+  const features = ['Kualitas Premium & Warna Konsisten', 'Cetak Kilat (One Day Service)', 'Harga Kompetitif untuk Semua Kebutuhan', 'Pemesanan Online Mudah & Praktis'];
+
+  const productIcons = [
+    { Icon: Book, delay: 0, color: 'from-blue-400 to-blue-600' },
+    { Icon: Printer, delay: 0.1, color: 'from-purple-400 to-purple-600' },
+    { Icon: Image, delay: 0.2, color: 'from-pink-400 to-pink-600' },
+    { Icon: Shirt, delay: 0.3, color: 'from-orange-400 to-orange-600' },
+  ];
+
+  const particles = [...Array(30)].map((_, i) => ({
+    id: i,
+    initialX: Math.random() * 100,
+    initialY: Math.random() * 100,
+  }));
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50 font-sans scroll-smooth">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50 font-sans scroll-smooth overflow-x-hidden w-full">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-lg z-50 border-b border-gray-100">
+      <nav className="fixed top-0 left-0 right-0 bg-white backdrop-blur-md shadow-lg z-50 border-b border-gray-100">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <a
@@ -190,23 +326,23 @@ const NuansaGrafika = () => {
                 document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-lg flex items-center justify-center shadow-lg transition-transform group-hover:rotate-6">
-                <Sparkles size={24} className="text-gray-900" />
+              <div className="w-14 h-10 md:w-18 md:h-10 rounded-lg overflow-hidden shadow-lg ">
+                <img src="/assets/logo-bg.png" alt="Nuansa Grafika Logo" className="w-full h-full object-cover" />
               </div>
               <div>
-                <h1 className="text-xl font-extrabold text-gray-900">Nuansa Grafika</h1>
-                <p className="text-xs text-gray-600 font-medium">Graphic Design Printing</p>
+                <h1 className="text-lg md:text-xl lg:text-xl font-extrabold text-gray-900 transition-all">Nuansa Grafika</h1>
+                <p className="text-[12px] md:text-xs lg:text-sm text-gray-600 font-medium">Graphic Design Printing</p>
               </div>
             </a>
 
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
               <a
                 href="#home"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-gray-700 hover:text-amber-500 font-semibold transition-colors relative group py-2"
+                className="text-sm lg:text-base text-gray-700 hover:text-amber-500 font-semibold transition-colors relative group py-2"
               >
                 Home
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 group-hover:w-full transition-all duration-300"></span>
@@ -217,7 +353,7 @@ const NuansaGrafika = () => {
                   e.preventDefault();
                   document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-gray-700 hover:text-amber-500 font-semibold transition-colors relative group py-2"
+                className="text-sm lg:text-base text-gray-700 hover:text-amber-500 font-semibold transition-colors relative group py-2 whitespace-nowrap"
               >
                 Produk & Layanan
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 group-hover:w-full transition-all duration-300"></span>
@@ -228,7 +364,7 @@ const NuansaGrafika = () => {
                   e.preventDefault();
                   document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-gray-700 hover:text-amber-500 font-semibold transition-colors relative group py-2"
+                className="text-sm lg:text-base text-gray-700 hover:text-amber-500 font-semibold transition-colors relative group py-2"
               >
                 Tentang Kami
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 group-hover:w-full transition-all duration-300"></span>
@@ -239,239 +375,505 @@ const NuansaGrafika = () => {
                   e.preventDefault();
                   document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 px-6 py-2 rounded-full font-bold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                className="bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 px-4 lg:px-6 py-2 rounded-full text-sm lg:text-base font-bold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 whitespace-nowrap"
               >
                 Konsultasi Gratis
               </a>
             </div>
 
-            <button className="md:hidden text-gray-900 p-2 hover:bg-amber-50 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              <Menu size={24} />
+            <button className="md:hidden text-gray-900 p-2 hover:bg-amber-50 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              <Menu size={24} className={`transition-transform duration-300 ${mobileMenuOpen ? 'rotate-90' : ''}`} />
             </button>
           </div>
 
           <AnimatePresence>
             {mobileMenuOpen && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="md:hidden mt-4 pb-2 space-y-3 overflow-hidden border-t border-gray-100">
-                <a
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                className="md:hidden mt-4 pb-2 space-y-3 overflow-hidden border-t border-gray-100"
+              >
+                <motion.a
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.1 }}
                   href="#home"
                   onClick={(e) => {
                     e.preventDefault();
                     document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
                     setMobileMenuOpen(false);
                   }}
-                  className="block text-gray-700 hover:text-amber-500 font-medium pt-3 px-4 hover:bg-amber-50 rounded-lg"
+                  className="block text-gray-700 hover:text-amber-500 font-medium pt-3 px-4 hover:bg-amber-50 rounded-lg transition-all duration-300 hover:translate-x-2"
                 >
                   Home
-                </a>
-                <a
+                </motion.a>
+                <motion.a
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.15 }}
                   href="#products"
                   onClick={(e) => {
                     e.preventDefault();
                     document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
                     setMobileMenuOpen(false);
                   }}
-                  className="block text-gray-700 hover:text-amber-500 font-medium py-2 px-4 hover:bg-amber-50 rounded-lg"
+                  className="block text-gray-700 hover:text-amber-500 font-medium py-2 px-4 hover:bg-amber-50 rounded-lg transition-all duration-300 hover:translate-x-2"
                 >
                   Produk & Layanan
-                </a>
-                <a
+                </motion.a>
+                <motion.a
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
                   href="#about"
                   onClick={(e) => {
                     e.preventDefault();
                     document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
                     setMobileMenuOpen(false);
                   }}
-                  className="block text-gray-700 hover:text-amber-500 font-medium py-2 px-4 hover:bg-amber-50 rounded-lg"
+                  className="block text-gray-700 hover:text-amber-500 font-medium py-2 px-4 hover:bg-amber-50 rounded-lg transition-all duration-300 hover:translate-x-2"
                 >
                   Tentang Kami
-                </a>
-                <a
+                </motion.a>
+                <motion.a
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.25 }}
                   href="#contact"
                   onClick={(e) => {
                     e.preventDefault();
                     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
                     setMobileMenuOpen(false);
                   }}
-                  className="block bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 py-2 px-4 rounded-lg font-bold text-center mt-3"
+                  className="block bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 py-2 px-4 rounded-lg font-bold text-center mt-3 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
                 >
                   Hubungi Kami
-                </a>
+                </motion.a>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
       </nav>
-
       {/* Hero */}
-      <section id="home" className="pt-32 pb-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute w-96 h-96 bg-amber-400 rounded-full mix-blend-color-dodge blur-3xl opacity-30 top-1/4 left-1/4 animate-pulse"></div>
-          <div className="absolute w-80 h-80 bg-yellow-500 rounded-full mix-blend-color-dodge blur-3xl opacity-30 bottom-1/4 right-1/4 animate-pulse" style={{ animationDelay: '500ms' }}></div>
+      <section id="home" className="relative min-h-[100vh] md:min-h-[100vh] pt-32 md:pt-34 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+        <div className="absolute inset-0">
+          {/* Orbs */}
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+            className="absolute w-[500px] h-[500px] bg-amber-400 rounded-full mix-blend-multiply filter blur-[120px] top-0 left-0 opacity-30"
+          />
+
+          <motion.div
+            animate={{
+              scale: [1.2, 1, 1.2],
+              opacity: [0.4, 0.6, 0.4],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 1,
+            }}
+            className="absolute w-[600px] h-[600px] bg-yellow-500 rounded-full mix-blend-multiply filter blur-[120px] bottom-0 right-0 opacity-30"
+          />
+
+          {particles.map((particle) => (
+            <motion.div
+              key={particle.id}
+              className="absolute w-1 h-1 bg-amber-400 rounded-full"
+              style={{
+                left: `${particle.initialX}%`,
+                top: `${particle.initialY}%`,
+              }}
+              animate={{
+                x: [0, Math.random() * 40 - 20, Math.random() * 40 - 20, 0],
+                y: [0, Math.random() * 40 - 20, Math.random() * 40 - 20, 0],
+                opacity: [0.3, 0.8, 0.4, 0.3],
+              }}
+              transition={{
+                duration: 4 + Math.random() * 3, // 4–7s
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+          ))}
+
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(251,191,36,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(251,191,36,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
         </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-              <div className="inline-block bg-amber-400 text-gray-900 px-4 py-1.5 rounded-full mb-6 font-bold text-sm shadow-lg">
-                <Sparkles size={16} className="inline mr-2" />
-                Percetakan Digital Terbaik
-              </div>
-
-              <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
-                Solusi <span className="block text-amber-400">Cetak Cepat</span> & Berkualitas
-              </h1>
-
-              <p className="text-xl text-gray-300 mb-8 max-w-lg">Nuansa Grafika, Percetakan Digital di Jakarta. Proses pemesanan online yang mudah dengan *One Day Service*.</p>
-
-              <div className="space-y-4 mb-10">
-                <div className="flex items-center space-x-3">
-                  <div className="bg-amber-400 p-2 rounded-full">
-                    <Check size={18} className="text-gray-900" />
-                  </div>
-                  <span className="text-white font-medium text-lg">Kualitas Tinggi & Terjamin</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="bg-amber-400 p-2 rounded-full">
-                    <Check size={18} className="text-gray-900" />
-                  </div>
-                  <span className="text-white font-medium text-lg">Pelayanan Cepat (One Day Service)</span>
-                </div>
-              </div>
-
-              <a
-                href="#products"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="inline-flex items-center bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:scale-105 transition-all"
-              >
-                Lihat Produk <ArrowRight size={20} className="ml-3" />
-              </a>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.3 }} className="relative hidden md:flex justify-center">
-              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 shadow-[0_0_60px_rgba(255,193,7,0.5)] transform rotate-2 hover:rotate-0 transition-transform duration-700 max-w-md w-full border border-amber-500/30">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-4">
-                    <div className="bg-gray-100 rounded-xl p-4 shadow-lg h-40 flex items-center justify-center">
-                      <Book size={40} className="text-gray-500" />
-                    </div>
-                    <div className="bg-gray-100 rounded-xl p-4 shadow-lg h-32 flex items-center justify-center">
-                      <Printer size={40} className="text-gray-500" />
-                    </div>
-                  </div>
-                  <div className="space-y-4 pt-6">
-                    <div className="bg-gray-100 rounded-xl p-4 shadow-lg h-32 flex items-center justify-center">
-                      <Image size={40} className="text-gray-500" />
-                    </div>
-                    <div className="bg-gray-100 rounded-xl p-4 shadow-lg h-40 flex items-center justify-center">
-                      <Shirt size={40} className="text-gray-500" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            {/* Left Content */}
+            <div className="text-center lg:text-left">
+              {/* Badge */}
               <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute bottom-10 -left-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-2xl p-4 shadow-2xl border-4 border-white"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="inline-flex font-mono items-center bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 px-5 py-2 rounded-full mb-6 font-bold text-sm shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-gray-900">24 Jam</div>
-                  <div className="text-sm font-semibold text-gray-800">Cetak Kilat</div>
+                <Sparkles size={16} className="mr-2" />
+                Terpercaya Sejak 2014
+              </motion.div>
+              {/* Main Heading */}
+              <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
+                Solusi Cetak
+                <br />
+                <span className="relative inline-block">
+                  <span className="text-amber-500">Profesional.</span>
+                  <svg className="absolute -bottom-2 left-0 w-full" height="20" viewBox="0 0 200 12" fill="none">
+                    <path d="M2 10C60 2 140 2 198 10" stroke="#F59E0B" strokeWidth="3.5" strokeLinecap="round" />
+                  </svg>
+                </span>
+              </motion.h1>
+              {/* Subheading */}
+              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                Nuansa Grafika menghadirkan hasil cetak premium dengan warna tajam, detail presisi, dan layanan cepat termasuk <span className="font-bold text-amber-400">One Day Service</span>.
+              </motion.p>
+              {/* Features List */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.1,
+                      delayChildren: 0.3,
+                    },
+                  },
+                }}
+                className="space-y-3 mb-10"
+              >
+                {features.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    variants={{
+                      hidden: { opacity: 0, x: -20 },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: {
+                          type: 'spring',
+                          stiffness: 100,
+                          damping: 12,
+                        },
+                      },
+                    }}
+                    whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                    className="flex items-center gap-3 group"
+                  >
+                    <div className="bg-gradient-to-br from-amber-400 to-yellow-500 p-2 rounded-full shadow-lg group-hover:shadow-amber-400/50 transition-shadow duration-300">
+                      <Check size={18} className="text-gray-900" strokeWidth={3} />
+                    </div>
+                    <span className="text-white text-base sm:text-lg font-medium">{item}</span>
+                  </motion.div>
+                ))}
+              </motion.div>
+              {/* CTA Buttons */}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <a
+                  href="#products"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 px-8 py-4 rounded-full font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl hover:shadow-amber-500/50 transition-all duration-300 group"
+                >
+                  Lihat Produk
+                  <motion.div animate={{ x: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                    <ArrowRight size={20} className="ml-3" />
+                  </motion.div>
+                </a>
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-bold text-base sm:text-lg border-2 border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300"
+                >
+                  Hubungi Kami
+                </a>
+              </motion.div>
+            </div>
+            {/* Right Content*/}
+            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.3, type: 'spring' }} className="relative hidden lg:flex justify-center items-center">
+              {/* Main Card */}
+              <motion.div className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-amber-500/20 max-w-md w-full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
+                {/* Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-400/20 to-yellow-500/20 rounded-3xl blur-xl -z-10" />
+
+                <div className="grid grid-cols-2 gap-5">
+                  {productIcons.map(({ Icon, delay, color }, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.5 + delay,
+                        type: 'spring',
+                        stiffness: 100,
+                        damping: 12,
+                      }}
+                      whileHover={{
+                        y: -10,
+                        transition: { duration: 0.3 },
+                      }}
+                      className={`bg-gradient-to-br ${color} rounded-2xl p-6 shadow-lg flex items-center justify-center ${index % 2 === 1 ? 'mt-8' : ''} cursor-pointer group`}
+                      style={{ height: index % 2 === 0 ? '160px' : '140px' }}
+                    >
+                      <Icon size={44} className="text-white drop-shadow-lg" />
+                    </motion.div>
+                  ))}
                 </div>
+
+                {/* Decorative Elements */}
+                <motion.div className="absolute -top-4 -right-4 w-24 h-24 bg-amber-400 rounded-full opacity-20 blur-2xl" animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 3, repeat: Infinity }} />
+                <motion.div className="absolute -bottom-4 -left-4 w-32 h-32 bg-yellow-500 rounded-full opacity-20 blur-2xl" animate={{ scale: [1.2, 1, 1.2] }} transition={{ duration: 4, repeat: Infinity }} />
+              </motion.div>
+
+              {/* Floating Badge - Enhanced */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{
+                  opacity: 1,
+                  x: 0,
+                  y: [0, -15, 0],
+                }}
+                transition={{
+                  opacity: { duration: 0.8, delay: 0.7 },
+                  x: { duration: 0.8, delay: 0.7 },
+                  y: {
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    delay: 1,
+                  },
+                }}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                className="absolute bottom-10 -left-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-2xl p-5 shadow-2xl border-4 border-white cursor-pointer"
+              >
+                <div className="text-center font-bold text-gray-900">
+                  <motion.div className="text-4xl mb-1" animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 2, repeat: Infinity }}>
+                    24 Jam
+                  </motion.div>
+                  <div className="text-sm font-semibold">Cetak Kilat</div>
+                </div>
+
+                {/* Pulse Ring */}
+                <motion.div
+                  className="absolute inset-0 border-4 border-amber-400 rounded-2xl"
+                  animate={{
+                    scale: [1, 1.2],
+                    opacity: [1, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeOut',
+                  }}
+                />
+              </motion.div>
+
+              {/* Floating Icons */}
+              <motion.div
+                animate={{
+                  y: [0, -20, 0],
+                  rotate: [0, 10, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                className="absolute top-0 right-0 bg-white/10 backdrop-blur-sm p-3 rounded-full border border-white/20"
+              >
+                <Sparkles className="text-amber-400" size={24} />
+              </motion.div>
+
+              <motion.div
+                animate={{
+                  y: [0, 20, 0],
+                  rotate: [0, -10, 0],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 1,
+                }}
+                className="absolute bottom-20 right-0 bg-white/10 backdrop-blur-sm p-3 rounded-full border border-white/20"
+              >
+                <Zap className="text-yellow-400" size={24} />
               </motion.div>
             </motion.div>
           </div>
         </div>
+        {/* Scroll Indicator */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden lg:block">
+          <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 1.5, repeat: Infinity }} className="flex flex-col items-center gap-2 text-gray-400 cursor-pointer hover:text-amber-400 transition-colors">
+            <a
+              href="#products"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="group flex flex-col justify-center items-center gap-2"
+            >
+              <span className="text-xs font-medium">Scroll Down</span>
+              <div className="w-6 h-10 border-2 border-current rounded-full flex justify-center">
+                <motion.div animate={{ y: [0, 12, 0] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-1 h-2 bg-current rounded-full mt-2" />
+              </div>
+            </a>
+          </motion.div>
+        </motion.div>
       </section>
-
       {/* Product Section */}
-      <section id="products" className="py-20 bg-white">
+      <section id="products" className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+          {/* Header */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
               Jelajahi <span className="text-amber-500">Produk</span> Kami
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">Kami menyediakan beragam layanan cetak, dari skala personal hingga kebutuhan bisnis korporat.</p>
           </motion.div>
 
-          <div className="mb-16">
-            <div className="flex space-x-4 pb-4 overflow-x-auto justify-start md:justify-center scrollbar-hide">
+          {/* Category Filter - Improved with smooth transitions */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }} className="mb-12">
+            <div className="flex gap-3 pb-4 overflow-x-auto justify-start md:justify-center scrollbar-hide">
               {categories.map((category, index) => {
                 const Icon = category.icon;
+                const isActive = activeCategory === category.id;
+
                 return (
                   <motion.button
                     key={category.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.05 }}
+                    transition={{
+                      delay: index * 0.05,
+                      type: 'spring',
+                      stiffness: 200,
+                      damping: 20,
+                    }}
+                    whileHover={{
+                      scale: 1.05,
+                      transition: { duration: 0.2 },
+                    }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setActiveCategory(category.id)}
-                    className={`flex flex-col items-center justify-center p-4 rounded-xl font-semibold transition-all w-32 h-32 text-center flex-shrink-0 shadow-lg ${
-                      activeCategory === category.id ? 'bg-gradient-to-br from-amber-400 to-yellow-500 text-gray-900 ring-4 ring-amber-200 scale-105' : 'bg-white text-gray-700 hover:bg-amber-50 hover:shadow-xl'
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl font-semibold transition-all duration-300 w-28 h-28 text-center flex-shrink-0 ${
+                      isActive ? 'bg-gradient-to-br from-amber-400 to-yellow-500 text-gray-900 shadow-lg shadow-amber-200' : 'bg-white text-gray-700 hover:bg-amber-50 shadow-md hover:shadow-lg'
                     }`}
                   >
-                    <Icon size={24} className="mb-2" />
+                    <motion.div
+                      animate={{
+                        rotate: isActive ? [0, -10, 10, 0] : 0,
+                        scale: isActive ? [1, 1.1, 1] : 1,
+                      }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <Icon size={28} className="mb-2" />
+                    </motion.div>
                     <span className="text-xs line-clamp-2">{category.name}</span>
                   </motion.button>
                 );
               })}
             </div>
-          </div>
-
-          {/* Produk Grid - Masonry Layout */}
-          <motion.div layout className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-            <AnimatePresence>
-              {filteredProducts.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  whileHover={{ y: -8 }}
-                  onClick={() => setSelectedProduct(product)}
-                  className="relative group cursor-pointer rounded-2xl bg-white shadow-md hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-amber-400 transition-all duration-300 break-inside-avoid"
-                >
-                  <div className="relative overflow-hidden" style={{ height: index % 3 === 0 ? '280px' : index % 3 === 1 ? '320px' : '260px' }}>
-                    <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute top-3 right-3 bg-amber-400 text-gray-900 px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1">
-                      <ZoomIn size={14} />
-                      Lihat Detail
-                    </div>
-                  </div>
-
-                  <div className="p-5">
-                    <h3 className="font-extrabold text-gray-900 text-lg mb-2 line-clamp-2">{product.name}</h3>
-                    <p className="text-amber-600 font-bold text-base mb-2">{product.price}</p>
-                    <p className="text-gray-600 text-sm line-clamp-2 mb-3">{product.description}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} size={14} className="text-amber-400 fill-current" />
-                        ))}
-                      </div>
-                      <span className="text-xs text-gray-500">{product.images.length} Foto</span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
           </motion.div>
 
-          {filteredProducts.length === 0 && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-20 bg-gray-50 rounded-2xl">
-              <Package size={64} className="mx-auto text-gray-400 mb-4" />
-              <p className="text-xl text-gray-500 font-semibold">Produk di kategori ini belum tersedia.</p>
-              <p className="text-gray-400">Silahkan pilih kategori lain.</p>
-            </motion.div>
-          )}
+          {/* Products Grid - Enhanced animations */}
+          <AnimatePresence mode="wait">
+            {filteredProducts.length > 0 ? (
+              <motion.div key={activeCategory} variants={containerVariants} initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredProducts.map((product, index) => (
+                  <motion.div
+                    key={product.id}
+                    variants={cardVariants}
+                    whileHover={{
+                      y: -12,
+                      transition: {
+                        type: 'spring',
+                        stiffness: 300,
+                        damping: 20,
+                      },
+                    }}
+                    onClick={() => setSelectedProduct(product)}
+                    className="relative group cursor-pointer rounded-2xl bg-white shadow-md hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-amber-400 transition-all duration-300"
+                  >
+                    {/* Image Container */}
+                    <div className="relative overflow-hidden h-64">
+                      <motion.img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" whileHover={{ scale: 1.1 }} transition={{ duration: 0.6, ease: 'easeOut' }} />
+
+                      {/* Gradient Overlay */}
+                      <motion.div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" initial={{ opacity: 0 }} whileHover={{ opacity: 1 }} transition={{ duration: 0.3 }} />
+
+                      {/* Hover Badge */}
+                      <motion.div
+                        className="absolute top-3 right-3 bg-amber-400 text-gray-900 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg"
+                        initial={{ opacity: 0, x: 20 }}
+                        whileHover={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ZoomIn size={14} />
+                        Lihat Detail
+                      </motion.div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-5">
+                      <h3 className="font-extrabold text-gray-900 text-lg mb-2 line-clamp-2">{product.name}</h3>
+                      <p className="text-amber-600 font-bold text-base mb-2">{product.price}</p>
+                      <p className="text-gray-600 text-sm line-clamp-2 mb-3">{product.description}</p>
+
+                      {/* Footer */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} size={14} className="text-amber-400 fill-current" />
+                          ))}
+                        </div>
+                        <span className="text-xs text-gray-500">{product.images.length} Foto</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            ) : (
+              <motion.div key="empty" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.4 }} className="text-center py-20 bg-gray-50 rounded-2xl">
+                <motion.div
+                  animate={{
+                    y: [0, -10, 0],
+                    rotate: [0, 5, -5, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                >
+                  <Package size={64} className="mx-auto text-gray-400 mb-4" />
+                </motion.div>
+                <p className="text-xl text-gray-500 font-semibold mb-2">Produk di kategori ini belum tersedia.</p>
+                <p className="text-gray-400">Silahkan pilih kategori lain.</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
-
       {/* About Section */}
       <section id="about" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
@@ -479,7 +881,7 @@ const NuansaGrafika = () => {
             <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-amber-400/50">
                 <img src="https://images.unsplash.com/photo-1590698933947-a202b069a861?w=600&h=800&fit=crop" alt="Printing Factory" className="w-full h-96 object-cover" />
-                <div className="absolute inset-0 bg-gray-900/60 transition-opacity hover:opacity-0"></div>
+                <div className="absolute inset-0 bg-gray-900/60 transition-opacity"></div>
               </div>
 
               <motion.div
@@ -524,7 +926,6 @@ const NuansaGrafika = () => {
           </div>
         </div>
       </section>
-
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-white">
         <div className="container mx-auto px-4">
@@ -545,21 +946,21 @@ const NuansaGrafika = () => {
                     <MapPin className="text-gray-900" size={24} />
                   </div>
                   <div>
-                    <p className="font-extrabold text-gray-900 mb-1 text-lg">Alamat </p>
+                    <p className="font-bold text-gray-900 mb-1 text-lg">Alamat </p>
                     <p className="text-gray-700">Jl. Agung Raya 1 RT.9/RW.2, Lenteng Agung, Jagakarsa, Jakarta Selatan</p>
                   </div>
                 </motion.div>
 
                 <motion.div whileHover={{ x: 5 }} className="flex items-start space-x-4">
-                  <a href="https://wa.me/6281312088319" target="_blank" rel="noopener noreferrer" className="flex items-start space-x-4 group w-full">
+                  <div className="flex items-start space-x-4 group w-full">
                     <div className="bg-gradient-to-br from-amber-400 to-yellow-500 p-4 rounded-xl shadow-lg flex-shrink-0">
                       <Phone className="text-gray-900" size={24} />
                     </div>
                     <div>
-                      <p className="font-extrabold text-gray-900 mb-1 text-lg transition-colors">Nomor Telepon</p>
-                      <p className="text-gray-700 font-bold">+62 813-1208-8319 / +62 815-9553-889</p>
+                      <p className="font-bold text-gray-900 mb-1 text-lg transition-colors">Nomor Telepon</p>
+                      <p className="text-gray-700 ">+62 813-1208-8319 / +62 815-9553-889</p>
                     </div>
-                  </a>
+                  </div>
                 </motion.div>
 
                 <motion.div whileHover={{ x: 5 }} className="flex items-start space-x-4">
@@ -567,13 +968,13 @@ const NuansaGrafika = () => {
                     <Mail className="text-gray-900" size={24} />
                   </div>
                   <div>
-                    <p className="font-extrabold text-gray-900 mb-1 text-lg">Email </p>
+                    <p className="font-bold text-gray-900 mb-1 text-lg">Email </p>
                     <p className="text-gray-700">nuansagrafika@yahoo.co.id</p>
                   </div>
                 </motion.div>
               </div>
             </motion.div>
-
+            {/* Mini Map */}
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="rounded-3xl overflow-hidden shadow-2xl">
               <div className="w-full h-full min-h-[400px] flex items-center justify-center">
                 <iframe
@@ -584,14 +985,13 @@ const NuansaGrafika = () => {
                   className="rounded-2xl"
                   loading="lazy"
                   allowFullScreen
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.867512497676!2d106.83737337424905!3d-6.279853361427306!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f23a412030d9%3A0x67d8f94943729e20!2sJl.%20Agung%20Raya%20I%20No.9%2C%20RT.9%2FRW.2%2C%20Lenteng%20Agung%2C%20Kec.%20Jagakarsa%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta%2012630!5e0!3m2!1sen!2sid!4v1701628107873!5m2!1sen!2sid"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6988.24783512814!2d106.84082777156264!3d-6.323690025249367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed18e8ba0aff%3A0xbea0477acd2f61ae!2sPercetakan%20Nuansa%20Grafika!5e1!3m2!1sid!2sid!4v1765305034130!5m2!1sid!2sid"
                 ></iframe>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
-
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
@@ -634,7 +1034,6 @@ const NuansaGrafika = () => {
           <p className="text-gray-500 text-sm">© 2025 Nuansa Grafika. All rights reserved.</p>
         </div>
       </footer>
-
       {/* Floating Buttons */}
       <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
         <motion.a
@@ -663,40 +1062,90 @@ const NuansaGrafika = () => {
           )}
         </AnimatePresence>
       </div>
-
       {/* Product Modal with Gallery */}
       <AnimatePresence>
         {selectedProduct && (
-          <motion.div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[9999] p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedProduct(null)}>
+          <motion.div
+            className="fixed min-h-screen inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[9999] p-2 sm:p-4 overflow-y-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => {
+              setSelectedProduct(null);
+              setCurrentImageIndex(0);
+            }}
+          >
             <motion.div
-              className="bg-white rounded-3xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto relative"
-              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-w-5xl w-full my-auto relative"
+              initial={{ scale: 0.9, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              exit={{ scale: 0.9, opacity: 0, y: 30 }}
+              transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 30,
+              }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button onClick={() => setSelectedProduct(null)} className="absolute top-4 right-4 bg-white p-3 rounded-full hover:bg-gray-100 transition-colors z-20 shadow-lg">
-                <X size={24} className="text-gray-800" />
-              </button>
+              {/* Close Button */}
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => {
+                  setSelectedProduct(null);
+                  setCurrentImageIndex(0);
+                }}
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white p-2 sm:p-3 rounded-full hover:bg-gray-100 transition-colors z-20 shadow-lg"
+              >
+                <X size={20} className="sm:w-6 sm:h-6 text-gray-800" />
+              </motion.button>
 
-              <div className="grid md:grid-cols-2 gap-6 p-6">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6 p-4 sm:p-6">
                 {/* Left: Image Gallery */}
-                <div className="space-y-4">
-                  <div className="relative rounded-2xl overflow-hidden shadow-xl border-4 border-amber-400/50">
-                    <img src={selectedProduct.images[currentImageIndex]} alt={selectedProduct.name} className="w-full h-96 object-cover" />
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border-2 sm:border-4 border-amber-400/50">
+                    <motion.img
+                      key={currentImageIndex}
+                      src={selectedProduct.images[currentImageIndex]}
+                      alt={selectedProduct.name}
+                      className="w-full h-64 sm:h-80 md:h-96 object-cover"
+                      initial={{ opacity: 0, scale: 1.1 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4 }}
+                    />
 
                     {selectedProduct.images.length > 1 && (
                       <>
-                        <button onClick={prevImage} className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all">
-                          <ChevronLeft size={24} className="text-gray-900" />
-                        </button>
-                        <button onClick={nextImage} className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all">
-                          <ChevronRight size={24} className="text-gray-900" />
-                        </button>
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={prevImage}
+                          className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 sm:p-3 rounded-full shadow-lg transition-all"
+                        >
+                          <ChevronLeft size={20} className="sm:w-6 sm:h-6 text-gray-900" />
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={nextImage}
+                          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 sm:p-3 rounded-full shadow-lg transition-all"
+                        >
+                          <ChevronRight size={20} className="sm:w-6 sm:h-6 text-gray-900" />
+                        </motion.button>
 
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                        {/* Image Indicators */}
+                        <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2">
                           {selectedProduct.images.map((_, idx) => (
-                            <button key={idx} onClick={() => setCurrentImageIndex(idx)} className={`w-2.5 h-2.5 rounded-full transition-all ${idx === currentImageIndex ? 'bg-amber-400 w-8' : 'bg-white/70'}`} />
+                            <motion.button
+                              key={idx}
+                              whileHover={{ scale: 1.2 }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setCurrentImageIndex(idx);
+                              }}
+                              className={`h-2 sm:h-2.5 rounded-full transition-all ${idx === currentImageIndex ? 'bg-amber-400 w-6 sm:w-8' : 'bg-white/70 w-2 sm:w-2.5'}`}
+                            />
                           ))}
                         </div>
                       </>
@@ -705,58 +1154,77 @@ const NuansaGrafika = () => {
 
                   {/* Thumbnail Gallery */}
                   {selectedProduct.images.length > 1 && (
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-2 sm:gap-3">
                       {selectedProduct.images.map((img, idx) => (
-                        <button
+                        <motion.button
                           key={idx}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                           onClick={() => setCurrentImageIndex(idx)}
-                          className={`rounded-xl overflow-hidden border-2 transition-all ${idx === currentImageIndex ? 'border-amber-400 scale-105 shadow-lg' : 'border-gray-200 hover:border-amber-300'}`}
+                          className={`rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all ${idx === currentImageIndex ? 'border-amber-400 scale-105 shadow-lg' : 'border-gray-200 hover:border-amber-300'}`}
                         >
-                          <img src={img} alt={`${selectedProduct.name} ${idx + 1}`} className="w-full h-24 object-cover" />
-                        </button>
+                          <img src={img} alt={`${selectedProduct.name} ${idx + 1}`} className="w-full h-16 sm:h-24 object-cover" />
+                        </motion.button>
                       ))}
                     </div>
                   )}
                 </div>
 
                 {/* Right: Product Details */}
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">{selectedProduct.name}</h3>
-                    <p className="text-amber-600 font-bold text-2xl mb-4">{selectedProduct.price}</p>
-                    <div className="flex items-center mb-4">
+                <div className="space-y-4 sm:space-y-6 overflow-y-auto max-h-[50vh] md:max-h-none pr-2">
+                  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-2 sm:mb-3">{selectedProduct.name}</h3>
+                    <p className="text-amber-600 font-bold text-xl sm:text-2xl mb-3 sm:mb-4">{selectedProduct.price}</p>
+                    <div className="flex items-center mb-3 sm:mb-4">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={20} className="text-amber-400 fill-current" />
+                        <Star key={i} size={18} className="sm:w-5 sm:h-5 text-amber-400 fill-current" />
                       ))}
-                      <span className="ml-2 text-gray-600 font-medium">(5.0)</span>
+                      <span className="ml-2 text-gray-600 font-medium text-sm sm:text-base">(5.0)</span>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="border-t border-gray-200 pt-6">
-                    <h4 className="font-bold text-gray-900 text-xl mb-3">Deskripsi Produk</h4>
-                    <p className="text-gray-700 leading-relaxed">{selectedProduct.details}</p>
-                  </div>
+                  <motion.div className="border-t border-gray-200 pt-4 sm:pt-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                    <h4 className="font-bold text-gray-900 text-lg sm:text-xl mb-2 sm:mb-3">Deskripsi Produk</h4>
+                    <p className="text-gray-700 leading-relaxed text-sm sm:text-base">{selectedProduct.details}</p>
+                  </motion.div>
 
-                  <div className="border-t border-gray-200 pt-6">
-                    <h4 className="font-bold text-gray-900 text-xl mb-4">Spesifikasi Utama</h4>
-                    <div className="grid grid-cols-2 gap-3">
+                  <motion.div className="border-t border-gray-200 pt-4 sm:pt-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                    <h4 className="font-bold text-gray-900 text-lg sm:text-xl mb-3 sm:mb-4">Spesifikasi Utama</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                       {selectedProduct.specs.map((spec, i) => (
-                        <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="flex items-center space-x-2 text-gray-700 bg-gray-50 p-3 rounded-lg">
-                          <Check size={18} className="text-green-500 flex-shrink-0" />
-                          <span className="text-sm font-medium">{spec}</span>
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{
+                            delay: 0.4 + i * 0.05,
+                            type: 'spring',
+                            stiffness: 300,
+                            damping: 24,
+                          }}
+                          whileHover={{ scale: 1.02, x: 4 }}
+                          className="flex items-center space-x-2 text-gray-700 bg-gray-50 p-2.5 sm:p-3 rounded-lg hover:bg-amber-50 transition-colors"
+                        >
+                          <Check size={16} className="sm:w-[18px] sm:h-[18px] text-green-500 flex-shrink-0" />
+                          <span className="text-xs sm:text-sm font-medium">{spec}</span>
                         </motion.div>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <a
+                  <motion.a
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
                     href={`https://wa.me/6281312088319?text=Saya%20tertarik%20dengan%20produk%20${encodeURIComponent(selectedProduct.name)}.%20Mohon%20info%20lebih%20lanjut.`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block text-center bg-gradient-to-r from-amber-500 to-yellow-600 text-gray-900 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+                    className="block text-center bg-gradient-to-r from-amber-500 to-yellow-600 text-gray-900 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all mt-4 sm:mt-6"
                   >
                     Order Sekarang Via WhatsApp!
-                  </a>
+                  </motion.a>
                 </div>
               </div>
             </motion.div>
@@ -767,4 +1235,4 @@ const NuansaGrafika = () => {
   );
 };
 
-export default NuansaGrafika;
+export default Homepage;
