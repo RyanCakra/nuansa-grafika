@@ -1,6 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Phone, Mail, MapPin, Menu, Star, Check, Package, FileText, Zap, Award, Image, Shirt, Printer, Book, Sticker, Tag, ArrowRight, Sparkles, ChevronUp, MessageCircleMore, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
+import {
+  X,
+  Phone,
+  Mail,
+  MapPin,
+  Menu,
+  Star,
+  Check,
+  Package,
+  FileText,
+  Zap,
+  Award,
+  Image,
+  Shirt,
+  Printer,
+  Book,
+  Sticker,
+  Tag,
+  ArrowRight,
+  Sparkles,
+  Quote,
+  ChevronUp,
+  ChevronDown,
+  MessageCircleMore,
+  ChevronLeft,
+  ChevronRight,
+  ZoomIn,
+} from 'lucide-react';
 import ContactSection from './components/ContactSection';
 
 const Homepage = () => {
@@ -9,6 +36,7 @@ const Homepage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [openFAQ, setOpenFAQ] = useState(null);
 
   // kategori
   const categories = [
@@ -24,9 +52,73 @@ const Homepage = () => {
   ];
 
   const products = [
-    /* BUKU YASIN  */
+    /* BANNER & SPANDUK */
     {
       id: 1,
+      name: 'Banner Outdoor Flexi 280gsm',
+      category: 'banner',
+      price: 'Mulai dari Rp 25.000 / Meter',
+      images: ['/assets/banner/b-1.jpg', '/assets/banner/b-2.jpg', '/assets/banner/b-3.jpg'],
+      description: 'Banner outdoor berkualitas untuk acara, promosi, atau branding toko. Harga tergantung jenis bahan',
+      details: 'Tidak ada minimum pemesanan. Lama pengerjaan 1–2 hari kerja.',
+      specs: ['Flexi 280gsm', 'Cetak Full Color', 'Tahan Cuaca', 'Finishing Mata Ayam Opsional', 'Ukuran Custom'],
+    },
+    {
+      id: 2,
+      name: 'Spanduk Flexi Premium 340gsm',
+      category: 'banner',
+      price: 'Mulai dari Rp 25.000 / Meter',
+      images: ['/assets/banner/sp-1.jpg', '/assets/banner/sp-2.jpg', '/assets/banner/sp-3.jpg'],
+      description: 'Spanduk premium untuk kebutuhan promosi jangka panjang. Harga tergantung dari jenis bahan',
+      details: 'Tidak ada minimum pemesanan. Lama pengerjaan 1–2 hari kerja.',
+      specs: ['Flexi 340gsm Premium', 'Warna Tajam', 'Anti Luntur', 'Finishing Lipat/Hotpress', 'Ukuran Custom'],
+    },
+    {
+      id: 3,
+      name: 'X-Banner Standar + Cetak',
+      category: 'banner',
+      price: 'Mulai dari Rp 25.000 / Meter',
+      images: ['/assets/banner/xb-1.jpg', '/assets/banner/xb-2.jpg', '/assets/banner/xb-3.jpg'],
+      description: 'Paket lengkap X-Banner dengan bahan flexi standar, cocok untuk event dan display toko. Harga tergantung dari jenis bahan',
+      details: 'Tidak ada minimum pemesanan. Pengerjaan 1 hari kerja.',
+      specs: ['Flexi 280gsm', 'Ukuran 60x160cm', 'Frame Standar', 'Cetak Full Color'],
+    },
+
+    /* UNDANGAN */
+    {
+      id: 4,
+      name: 'Undangan Pernikahan Softcover Elegan',
+      category: 'undangan',
+      price: 'Mulai dari Rp 1.500 / pcs',
+      images: ['/assets/undangan/u1-1.jpg', '/assets/undangan/u1-2.jpg', '/assets/undangan/u1-3.jpg'],
+      description: 'Undangan pernikahan softcover dengan desain elegan dan modern.',
+      details: 'Minimum pemesanan 100 pcs. Lama pengerjaan 5–7 hari kerja setelah approval desain.',
+      specs: ['Art Paper 260gsm', 'Laminasi Doff/Glossy', 'Cetak Full Color', 'Free Desain Basic', 'Ukuran Custom'],
+    },
+    {
+      id: 5,
+      name: 'Undangan Aqiqah & Khitan Full Color',
+      category: 'undangan',
+      price: 'Mulai dari Rp 1.500 / pcs',
+      images: ['/assets/undangan/u2-1.jpg', '/assets/undangan/u2-2.jpg'],
+      description: 'Undangan aqiqah dan khitan dengan tampilan ceria dan full color.',
+      details: 'Minimum pemesanan 100 pcs. Lama pengerjaan 3–5 hari kerja.',
+      specs: ['Art Carton 230–260gsm', 'Full Color', 'Desain Ceria', 'Finishing Glossy', 'Ukuran Custom'],
+    },
+    {
+      id: 6,
+      name: 'Undangan Exclusive Hardcover',
+      category: 'undangan',
+      price: 'Mulai dari Rp 5.000 / pcs',
+      images: ['/assets/undangan/u3-1.jpg', '/assets/undangan/u3-2.jpg', '/assets/undangan/u3-3.jpg'],
+      description: 'Undangan hardcover premium dengan tampilan mewah dan elegan.',
+      details: 'Minimum pemesanan 50 pcs. Lama pengerjaan 7–10 hari kerja.',
+      specs: ['Hardcover Premium', 'Laminasi Doff', 'Hotprint Emas/Perak', 'Pita Opsional', 'Ukuran Custom'],
+    },
+
+    /* BUKU YASIN */
+    {
+      id: 7,
       name: 'Buku Yasin Hardcover Beludru Matte Paper',
       category: 'yasin',
       price: 'Mulai dari Rp 25.000 - Rp 35.000',
@@ -36,7 +128,7 @@ const Homepage = () => {
       specs: ['Kertas HVS/Bookpaper', 'Cover Art Carton', 'Laminasi Doff/Glossy', 'Hotprint Emas/Perak', 'Ukuran Custom', 'Desain Elegan'],
     },
     {
-      id: 2,
+      id: 8,
       name: 'Buku Yasin Matte Paper Glossy Hardcover RCP Bunga Berlian',
       category: 'yasin',
       price: 'Mulai dari Rp 25.000 - Rp 35.000',
@@ -46,7 +138,7 @@ const Homepage = () => {
       specs: ['Kertas HVS/Bookpaper', 'Cover Art Carton', 'Laminasi Doff/Glossy', 'Hotprint Emas/Perak', 'Ukuran Custom', 'Desain Elegan'],
     },
     {
-      id: 3,
+      id: 9,
       name: 'Buku Yasin Hard Cover Motif Kubah',
       category: 'yasin',
       price: 'Mulai dari Rp 25.000 - Rp 35.000',
@@ -56,7 +148,7 @@ const Homepage = () => {
       specs: ['Kertas HVS/Bookpaper', 'Cover Art Carton', 'Laminasi Doff/Glossy', 'Hotprint Emas/Perak', 'Ukuran Custom', 'Desain Elegan'],
     },
     {
-      id: 4,
+      id: 10,
       name: 'Buku Yasin dan Tahlil Soft Cover Custom',
       category: 'yasin',
       price: 'Mulai dari Rp 15.000 - Rp 25.000',
@@ -65,70 +157,9 @@ const Homepage = () => {
       details: 'Minimum pemesanan 35 buku. Lama pengerjaan 7 hari kerja setelah persetujuan cetak dan konfirmasi pembayaran.',
       specs: ['Kertas HVS/Bookpaper', 'Soft Cover', 'Laminasi Doff/Glossy', 'Hotprint Emas/Perak', 'Ukuran Custom', 'Desain Elegan'],
     },
-
-    /* ============================
-       KOP SURAT & KARTU NAMA
-  ============================ */
+    /* MERCHANDISE */
     {
-      id: 5,
-      name: 'Kartu Nama Premium',
-      category: 'stationery',
-      price: 'Mulai dari Rp 25.000 / box',
-      images: ['/assets/stationery/kn-3.jpg', '/assets/stationery/kn-1.jpg', '/assets/stationery/kn-2.jpg'],
-      description: 'Kartu nama premium untuk kebutuhan identitas bisnis.',
-      details: 'Minimum pemesanan 1 box (100 pcs). Lama pengerjaan 2–3 hari kerja.',
-      specs: ['Art Carton 260–310 gsm', 'Laminasi Doff/Glossy', 'Spot UV Opsional', 'Sudut Rounded Opsional', 'Full Color Cetak Digital'],
-    },
-    {
-      id: 6,
-      name: 'Kop Surat Custom Profesional',
-      category: 'stationery',
-      price: 'Mulai dari Rp 500 / lembar',
-      images: ['/assets/stationery/ks-1.jpg', '/assets/stationery/ks-2.jpg', '/assets/stationery/ks-3.jpeg'],
-      description: 'Kop surat custom untuk kebutuhan perusahaan, instansi, atau organisasi.',
-      details: 'Minimum pemesanan 100 lembar. Lama pengerjaan 2–3 hari kerja.',
-      specs: ['HVS 80–100 gsm', 'Cetak Full Color', 'Ukuran A4', 'Logo dan informasi custom', 'Hasil warna tajam'],
-    },
-
-    /* ============================
-            LAKBAN CUSTOM
-  ============================ */
-    {
-      id: 7,
-      name: 'Lakban Custom BOPP 48mm',
-      category: 'lakban',
-      price: 'Mulai dari Rp 8.000 / roll',
-      images: ['/assets/lakban/lb-1.jpg', '/assets/lakban/lb-2.jpg', '/assets/lakban/lb-3.jpg'],
-      description: 'Lakban custom ukuran standar untuk kebutuhan packing.',
-      details: 'Minimum 36 roll. Pengerjaan 7 hari kerja.',
-      specs: ['Bahan BOPP', 'Lebar 48mm', 'Tinta Tidak Luntur', 'Cetak 1–3 Warna', 'Lem Kuat'],
-    },
-    {
-      id: 8,
-      name: 'Lakban Custom BOPP 60mm',
-      category: 'lakban',
-      price: 'Mulai dari Rp 10.000 / roll',
-      images: ['/assets/lakban/lb-1.jpg', '/assets/lakban/lb-2.jpg', '/assets/lakban/lb-3.jpg'],
-      description: 'Lakban custom lebar untuk branding pengemasan.',
-      details: 'Minimum 36 roll. Pengerjaan 7 hari kerja.',
-      specs: ['BOPP Premium', 'Lebar 60mm', 'Cetak Full Custom', 'Waterproof', 'Lem Super Strong'],
-    },
-    {
-      id: 9,
-      name: 'Lakban Custom Fragile / Warning',
-      category: 'lakban',
-      price: 'Mulai dari Rp 9.000 / roll',
-      images: ['/assets/lakban/lbf-1.jpg'],
-      description: 'Lakban fragile khusus untuk kebutuhan pengiriman barang.',
-      details: 'Minimum 36 roll. Pengerjaan 7 hari kerja.',
-      specs: ['Bahan BOPP', 'Desain Peringatan “FRAGILE”', 'Warna Cerah', 'Tahan Air', 'Adhesive Kuat'],
-    },
-
-    /* ============================
-             MERCHANDISE
-  ============================ */
-    {
-      id: 10,
+      id: 11,
       name: 'Mug Custom',
       category: 'merchandise',
       price: 'Mulai dari Rp 20.000',
@@ -138,7 +169,7 @@ const Homepage = () => {
       specs: ['Bahan Keramik', 'Sablon Sublim', 'Tahan Panas', 'Warna Tajam', 'Food Grade'],
     },
     {
-      id: 11,
+      id: 12,
       name: 'Totebag Custom',
       category: 'merchandise',
       price: 'Mulai dari Rp 18.000',
@@ -147,77 +178,109 @@ const Homepage = () => {
       details: 'Minimum 12 pcs. Pengerjaan 3–5 hari kerja.',
       specs: ['Bahan Kanvas / Blacu', 'Sablon DTF / Plastisol', 'Jahit Rapi', 'Tahan Beban'],
     },
-    // {
-    //   id: 12,
-    //   name: 'Topi Custom Bordir',
-    //   category: 'merchandise',
-    //   price: 'Mulai dari Rp 30.000',
-    //   images: [
-    //     '/assets/merchandise/sck-1.jpg',
-    //     '/assets/merchandise/sck-2.jpg',
-    //     '/assets/merchandise/sck-3.jpg',
-    //   ],
-    //   description: 'Topi custom bordir dengan bahan premium.',
-    //   details: 'Minimum 12 pcs. Lama pengerjaan 5–7 hari kerja.',
-    //   specs: ['Bordir Komputer', 'Bahan Drill / Twill', 'Warna Tidak Mudah Luntur', 'Ukuran Adjustable'],
-    // },
     {
       id: 13,
       name: 'Tumbler Custom',
       category: 'merchandise',
-      price: 'Mulai dari Rp 35.000',
+      price: 'Mulai dari Rp 50.000',
       images: ['/assets/merchandise/tb-1.png', '/assets/merchandise/tb-2.jpg', '/assets/merchandise/tb-3.jpg'],
       description: 'Tumbler custom cocok untuk souvenir dan merchandise.',
       details: 'Minimum 12 pcs. Lama pengerjaan 5 hari kerja.',
       specs: ['Bahan Stainless / Plastik Premium', 'Cetak Full Color', 'Tahan Panas & Dingin', 'Food Grade'],
     },
-
-    /* ============================
-        STIKER & LABEL CUSTOM
-  ============================ */
+    /* LAKBAN CUSTOM */
     {
       id: 14,
+      name: 'Lakban Custom BOPP 48mm',
+      category: 'lakban',
+      price: 'Mulai dari Rp 14.000 / roll',
+      images: ['/assets/lakban/lb-1.jpg', '/assets/lakban/lb-2.jpg', '/assets/lakban/lb-3.jpg'],
+      description: 'Lakban custom ukuran standar untuk kebutuhan packing.',
+      details: 'Minimum 36 roll. Pengerjaan 7 hari kerja.',
+      specs: ['Bahan BOPP', 'Lebar 48mm', 'Tinta Tidak Luntur', 'Cetak 1–3 Warna', 'Lem Kuat'],
+    },
+    {
+      id: 15,
+      name: 'Lakban Custom BOPP 60mm',
+      category: 'lakban',
+      price: 'Mulai dari Rp 22.000 / roll',
+      images: ['/assets/lakban/lb-1.jpg', '/assets/lakban/lb-2.jpg', '/assets/lakban/lb-3.jpg'],
+      description: 'Lakban custom lebar untuk branding pengemasan.',
+      details: 'Minimum 1000 roll. Pengerjaan 7 hari kerja.',
+      specs: ['BOPP Premium', 'Lebar 60mm', 'Cetak Full Custom', 'Waterproof', 'Lem Super Strong'],
+    },
+    {
+      id: 16,
+      name: 'Lakban Custom Fragile / Warning',
+      category: 'lakban',
+      price: 'Mulai dari Rp 22.000 / roll',
+      images: ['/assets/lakban/lbf-1.jpg'],
+      description: 'Lakban fragile khusus untuk kebutuhan pengiriman barang.',
+      details: 'Minimum 1000 roll. Pengerjaan 7 hari kerja.',
+      specs: ['Bahan BOPP', 'Desain Peringatan “FRAGILE”', 'Warna Cerah', 'Tahan Air', 'Adhesive Kuat'],
+    },
+    /* KOP SURAT & KARTU NAMA */
+    {
+      id: 17,
+      name: 'Kartu Nama Premium',
+      category: 'stationery',
+      price: 'Mulai dari Rp 25.000 / box',
+      images: ['/assets/stationery/kn-3.jpg', '/assets/stationery/kn-1.jpg', '/assets/stationery/kn-2.jpg'],
+      description: 'Kartu nama premium untuk kebutuhan identitas bisnis.',
+      details: 'Minimum pemesanan 1 box (100 pcs). Lama pengerjaan 2–3 hari kerja.',
+      specs: ['Art Carton 260–310 gsm', 'Laminasi Doff/Glossy', 'Spot UV Opsional', 'Sudut Rounded Opsional', 'Full Color Cetak Digital'],
+    },
+    {
+      id: 18,
+      name: 'Kop Surat Custom Profesional',
+      category: 'stationery',
+      price: 'Mulai dari Rp 150.000 / Rim HVS',
+      images: ['/assets/stationery/ks-1.jpg', '/assets/stationery/ks-2.jpg', '/assets/stationery/ks-3.jpeg'],
+      description: 'Kop surat custom untuk kebutuhan perusahaan, instansi, atau organisasi.',
+      details: 'Minimum pemesanan 1 Rim. Lama pengerjaan 5 hari kerja.',
+      specs: ['HVS 80–100 gsm', 'Cetak Full Color', 'Ukuran A4', 'Logo dan informasi custom', 'Hasil warna tajam'],
+    },
+    /* BUKU & MAJALAH */
+    {
+      id: 19,
+      name: 'Buku Katalog Full Color',
+      category: 'publishing',
+      price: 'Mulai dari Rp 50.000 - Rp 200.000',
+      images: ['/assets/publishing/bp-1.jpeg', '/assets/publishing/bp-2.jpeg'],
+      description: 'Cetak buku katalog full color dengan kualitas premium. Harga tergantung Quantity, jumlah halaman, jenis kertas, dan warna cetak',
+      details: 'Minimum pemesanan 20 buku. Pengerjaan 5–7 hari kerja.',
+      specs: ['HVS / Book Paper / Art Paper', 'Perfect Binding', 'Cover Laminasi Doff/Glossy', 'Full Color'],
+    },
+    {
+      id: 20,
+      name: 'Notebook Custom',
+      category: 'publishing',
+      price: 'Mulai dari Rp 10.000 - Rp 30.000',
+      images: ['/assets/publishing/bt-1.jpeg', '/assets/publishing/bt-2.jpeg', '/assets/publishing/bt-3.jpeg'],
+      description: 'Majalah custom dengan layout profesional.',
+      details: 'Minimum 30 buku. Pengerjaan 5–7 hari kerja.',
+      specs: ['Kertas Art Paper', 'Staple Binding / Perfect Binding', 'Full Color', 'Desain Layout Custom'],
+    },
+    /* STIKER & LABEL */
+    {
+      id: 21,
       name: 'Stiker Vinyl Custom',
       category: 'stiker',
-      price: 'Mulai dari Rp 2.000 / lembar',
+      price: 'Mulai dari Rp 1.000 - Rp. 15 000/ lembar',
       images: ['/assets/stiker/s-1.jpg', '/assets/stiker/s-2.jpg'],
       description: 'Stiker vinyl premium waterproof untuk indoor/outdoor.',
       details: 'Minimum 50 lembar. Pengerjaan 2–3 hari kerja.',
       specs: ['Bahan Vinyl', 'Waterproof', 'Cutting Presisi', 'Glossy / Matte', 'Tahan UV'],
     },
     {
-      id: 15,
+      id: 22,
       name: 'Label Produk Custom',
       category: 'stiker',
-      price: 'Mulai dari Rp 1.000 / pcs',
+      price: 'Mulai dari Rp 2.000 - Rp 25.000 / pcs',
       images: ['/assets/stiker/l-1.jpg', '/assets/stiker/l-2.jpg'],
       description: 'Label custom untuk kemasan produk UMKM dan brand.',
       details: 'Minimum 100 pcs. Pengerjaan 2–3 hari kerja.',
       specs: ['Bahan Vinyl / Chromo', 'Finishing Glossy / Matte', 'Cetak Full Color', 'Cutting Custom'],
-    },
-
-    /* ============================
-         BUKU & MAJALAH
-  ============================ */
-    {
-      id: 16,
-      name: 'Buku Katalog Full Color',
-      category: 'publishing',
-      price: 'Mulai dari Rp 20.000',
-      images: ['/assets/publishing/bp-1.jpeg', '/assets/publishing/bp-2.jpeg'],
-      description: 'Cetak buku katalog full color dengan kualitas premium.',
-      details: 'Minimum pemesanan 10 buku. Pengerjaan 5–7 hari kerja.',
-      specs: ['HVS / Book Paper / Art Paper', 'Perfect Binding', 'Cover Laminasi Doff/Glossy', 'Full Color'],
-    },
-    {
-      id: 17,
-      name: 'Buku tulis Custom',
-      category: 'publishing',
-      price: 'Mulai dari Rp 18.000',
-      images: ['/assets/publishing/bt-1.jpeg', '/assets/publishing/bt-2.jpeg', '/assets/publishing/bt-3.jpeg'],
-      description: 'Majalah custom dengan layout profesional.',
-      details: 'Minimum 10 buku. Pengerjaan 5–7 hari kerja.',
-      specs: ['Kertas Art Paper', 'Staple Binding / Perfect Binding', 'Full Color', 'Desain Layout Custom'],
     },
   ];
 
@@ -306,6 +369,73 @@ const Homepage = () => {
     { Icon: Shirt, delay: 0.3, color: 'from-orange-400 to-orange-600' },
   ];
 
+  // Review Data
+  const reviews = [
+    {
+      id: 1,
+      name: 'Budi Santoso',
+      location: 'Jakarta',
+      rating: 5,
+      review: 'Pelayanan sangat cepat dan hasil cetakan berkualitas tinggi. Saya sangat puas dengan One Day Service mereka. Rekomendasi banget untuk yang butuh cetak cepat!',
+    },
+    {
+      id: 2,
+      name: 'Siti Nurhaliza',
+      location: 'Tangerang',
+      rating: 5,
+      review: 'Harga kompetitif dan hasil memuaskan. Tim sangat responsif dalam menjawab pertanyaan. Sudah langganan di sini untuk semua kebutuhan cetak kantor.',
+    },
+    {
+      id: 3,
+      name: 'Ahmad Rizki',
+      location: 'Depok',
+      rating: 5,
+      review: 'Kualitas cetak warna sangat tajam dan konsisten. Pengerjaan tepat waktu sesuai janji. Sangat profesional!',
+    },
+    {
+      id: 4,
+      name: 'Dewi Lestari',
+      location: 'Bekasi',
+      rating: 5,
+      review: 'Sudah beberapa kali order untuk kebutuhan event dan selalu puas. Hasil cetakan banner dan brosur sangat bagus. Terima kasih Nuansa Grafika!',
+    },
+  ];
+
+  // FAQ Data
+  const faqs = [
+    {
+      id: 1,
+      question: 'Apa itu layanan One Day Service?',
+      answer: 'One Day Service adalah layanan cetak kilat kami di mana pesanan Anda akan selesai dalam waktu 24 jam. Layanan ini tersedia untuk berbagai jenis produk seperti dokumen, brosur, dan banner dengan minimum order tertentu.',
+    },
+    {
+      id: 2,
+      question: 'Apakah ada minimum order untuk cetak?',
+      answer:
+        'Minimum order berbeda-beda tergantung jenis produk. Untuk cetak dokumen biasa tidak ada minimum order, namun untuk produk khusus seperti buku atau packaging ada minimum order. Silakan hubungi kami untuk informasi lebih detail.',
+    },
+    {
+      id: 3,
+      question: 'Bagaimana cara melakukan pemesanan?',
+      answer:
+        'Anda bisa melakukan pemesanan melalui WhatsApp, telepon, email, atau datang langsung ke toko kami. Kirimkan file yang akan dicetak beserta spesifikasi yang diinginkan, kemudian tim kami akan memberikan quotation dan estimasi waktu pengerjaan.',
+    },
+    {
+      id: 4,
+      question: 'Apakah bisa revisi desain sebelum cetak?',
+      answer: 'Tentu saja! Kami akan mengirimkan proof/sample desain sebelum proses cetak dimulai. Anda bisa melakukan revisi hingga desain sesuai dengan keinginan Anda. Kepuasan pelanggan adalah prioritas kami.',
+    },
+    {
+      id: 5,
+      question: 'Apa saja metode pembayaran yang tersedia?',
+      answer: 'Kami menerima berbagai metode pembayaran termasuk transfer bank (BCA, Mandiri, BRI), e-wallet (GoPay, OVO, Dana), dan pembayaran tunai. Untuk order dalam jumlah besar, kami juga menerima pembayaran secara bertahap.',
+    },
+  ];
+
+  const toggleFAQ = (id) => {
+    setOpenFAQ(openFAQ === id ? null : id);
+  };
+
   const particles = [...Array(30)].map((_, i) => ({
     id: i,
     initialX: Math.random() * 100,
@@ -315,7 +445,7 @@ const Homepage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50 font-sans scroll-smooth overflow-x-hidden w-full">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 bg-white backdrop-blur-md shadow-lg z-50 border-b border-gray-100">
+      <nav className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-xl shadow-2xl z-50 ">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <a
@@ -326,12 +456,12 @@ const Homepage = () => {
                 document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              <div className="w-14 h-10 md:w-18 md:h-10 rounded-lg overflow-hidden shadow-lg ">
+              <div className="w-14 h-10 md:w-18 md:h-10 rounded-lg overflow-hidden shadow-lg">
                 <img src="/assets/logo-bg.png" alt="Nuansa Grafika Logo" className="w-full h-full object-cover" />
               </div>
               <div>
-                <h1 className="text-lg md:text-xl lg:text-xl font-extrabold text-gray-900 transition-all">Nuansa Grafika</h1>
-                <p className="text-[12px] md:text-xs lg:text-sm text-gray-600 font-medium">Graphic Design Printing</p>
+                <h1 className="text-lg md:text-xl lg:text-xl font-extrabold text-white transition-all">Nuansa Grafika</h1>
+                <p className="text-[12px] md:text-xs lg:text-sm text-gray-300 font-medium">Graphic Design Printing</p>
               </div>
             </a>
 
@@ -342,10 +472,10 @@ const Homepage = () => {
                   e.preventDefault();
                   document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-sm lg:text-base text-gray-700 hover:text-amber-500 font-semibold transition-colors relative group py-2"
+                className="text-sm lg:text-base text-gray-300 hover:text-amber-400 font-semibold transition-colors relative group py-2"
               >
                 Home
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 group-hover:w-full transition-all duration-300"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-400 group-hover:w-full transition-all duration-300"></span>
               </a>
               <a
                 href="#products"
@@ -353,10 +483,10 @@ const Homepage = () => {
                   e.preventDefault();
                   document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-sm lg:text-base text-gray-700 hover:text-amber-500 font-semibold transition-colors relative group py-2 whitespace-nowrap"
+                className="text-sm lg:text-base text-gray-300 hover:text-amber-400 font-semibold transition-colors relative group py-2 whitespace-nowrap"
               >
                 Produk & Layanan
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 group-hover:w-full transition-all duration-300"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-400 group-hover:w-full transition-all duration-300"></span>
               </a>
               <a
                 href="#about"
@@ -364,10 +494,10 @@ const Homepage = () => {
                   e.preventDefault();
                   document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-sm lg:text-base text-gray-700 hover:text-amber-500 font-semibold transition-colors relative group py-2"
+                className="text-sm lg:text-base text-gray-300 hover:text-amber-400 font-semibold transition-colors relative group py-2"
               >
                 Tentang Kami
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 group-hover:w-full transition-all duration-300"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-400 group-hover:w-full transition-all duration-300"></span>
               </a>
               <a
                 href="#contact"
@@ -375,13 +505,13 @@ const Homepage = () => {
                   e.preventDefault();
                   document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 px-4 lg:px-6 py-2 rounded-full text-sm lg:text-base font-bold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 whitespace-nowrap"
+                className="bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 px-4 lg:px-6 py-2 rounded-full text-sm lg:text-base font-bold shadow-lg hover:shadow-amber-500/50 transform hover:scale-105 transition-all duration-300 whitespace-nowrap"
               >
                 Konsultasi Gratis
               </a>
             </div>
 
-            <button className="md:hidden text-gray-900 p-2 hover:bg-amber-50 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            <button className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
               <Menu size={24} className={`transition-transform duration-300 ${mobileMenuOpen ? 'rotate-90' : ''}`} />
             </button>
           </div>
@@ -393,7 +523,7 @@ const Homepage = () => {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
-                className="md:hidden mt-4 pb-2 space-y-3 overflow-hidden border-t border-gray-100"
+                className="md:hidden mt-4 pb-2 space-y-3 overflow-hidden border-t border-amber-500/20"
               >
                 <motion.a
                   initial={{ x: -20, opacity: 0 }}
@@ -405,7 +535,7 @@ const Homepage = () => {
                     document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
                     setMobileMenuOpen(false);
                   }}
-                  className="block text-gray-700 hover:text-amber-500 font-medium pt-3 px-4 hover:bg-amber-50 rounded-lg transition-all duration-300 hover:translate-x-2"
+                  className="block text-gray-300 hover:text-amber-400 font-medium pt-3 px-4 hover:bg-white/10 rounded-lg transition-all duration-300 hover:translate-x-2"
                 >
                   Home
                 </motion.a>
@@ -419,7 +549,7 @@ const Homepage = () => {
                     document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
                     setMobileMenuOpen(false);
                   }}
-                  className="block text-gray-700 hover:text-amber-500 font-medium py-2 px-4 hover:bg-amber-50 rounded-lg transition-all duration-300 hover:translate-x-2"
+                  className="block text-gray-300 hover:text-amber-400 font-medium py-2 px-4 hover:bg-white/10 rounded-lg transition-all duration-300 hover:translate-x-2"
                 >
                   Produk & Layanan
                 </motion.a>
@@ -433,7 +563,7 @@ const Homepage = () => {
                     document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
                     setMobileMenuOpen(false);
                   }}
-                  className="block text-gray-700 hover:text-amber-500 font-medium py-2 px-4 hover:bg-amber-50 rounded-lg transition-all duration-300 hover:translate-x-2"
+                  className="block text-gray-300 hover:text-amber-400 font-medium py-2 px-4 hover:bg-white/10 rounded-lg transition-all duration-300 hover:translate-x-2"
                 >
                   Tentang Kami
                 </motion.a>
@@ -447,7 +577,7 @@ const Homepage = () => {
                     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
                     setMobileMenuOpen(false);
                   }}
-                  className="block bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 py-2 px-4 rounded-lg font-bold text-center mt-3 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                  className="block bg-gradient-to-r from-amber-400 to-yellow-500 text-gray-900 py-2 px-4 rounded-lg font-bold text-center mt-3 hover:shadow-lg hover:shadow-amber-500/50 transform hover:scale-105 transition-all duration-300"
                 >
                   Hubungi Kami
                 </motion.a>
@@ -457,7 +587,7 @@ const Homepage = () => {
         </div>
       </nav>
       {/* Hero */}
-      <section id="home" className="relative min-h-[100vh] md:min-h-[100vh] pt-32 md:pt-34 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+      <section id="home" className="relative min-h-[100vh] md:min-h-[100vh] pt-32 md:pt-34 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 overflow-hidden">
         <div className="absolute inset-0">
           {/* Orbs */}
           <motion.div
@@ -880,8 +1010,8 @@ const Homepage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-amber-400/50">
-                <img src="https://images.unsplash.com/photo-1590698933947-a202b069a861?w=600&h=800&fit=crop" alt="Printing Factory" className="w-full h-96 object-cover" />
-                <div className="absolute inset-0 bg-gray-900/60 transition-opacity"></div>
+                <img src="/assets/sp-banner.jpg" alt="about image" className="w-full h-96 object-left" />
+                <div className="absolute inset-0 bg-yellow-300/10 transition-opacity"></div>
               </div>
 
               <motion.div
@@ -923,6 +1053,125 @@ const Homepage = () => {
                 </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+      {/* ========== REVIEW SECTION ========== */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            {/* Header with Left-aligned Description */}
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-12 md:mb-16">
+              {/* Left - Description */}
+              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Review Section</h2>
+                <div className="w-20 h-1 bg-amber-500 mb-6"></div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Let happy users convince the rest.</h3>
+                <p className="text-gray-600 leading-relaxed">Testimonials with names, ratings, and short blurbs help build authenticity and trust.</p>
+              </motion.div>
+
+              {/* Right - First Review Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                whileHover={{ y: -5 }}
+                className="bg-gray-50 rounded-2xl p-6 sm:p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+              >
+                <Quote className="text-amber-500 mb-4" size={32} />
+                <div className="flex gap-1 mb-4">
+                  {[...Array(reviews[0].rating)].map((_, i) => (
+                    <Star key={i} size={18} className="text-amber-400 fill-current" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-6 leading-relaxed">{reviews[0].review}</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-lg">{reviews[0].name.charAt(0)}</div>
+                  <div>
+                    <p className="font-bold text-gray-900">{reviews[0].name}</p>
+                    <p className="text-sm text-gray-500">{reviews[0].location}</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Bottom 3 Review Cards */}
+            <div className="grid md:grid-cols-3 gap-6">
+              {reviews.slice(1, 4).map((review, index) => (
+                <motion.div
+                  key={review.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 * (index + 1) }}
+                  whileHover={{ y: -5 }}
+                  className="bg-gray-50 rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+                >
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <Star key={i} size={16} className="text-amber-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 mb-6 leading-relaxed text-sm">{review.review}</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold">{review.name.charAt(0)}</div>
+                    <div>
+                      <p className="font-bold text-gray-900 text-sm">{review.name}</p>
+                      <p className="text-xs text-gray-500">{review.location}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* ========== FAQ SECTION ========== */}
+      <section className="py-16 md:py-20 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+              {/* Left - FAQ Title */}
+              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:sticky lg:top-24">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">FAQ Section</h2>
+                <div className="w-20 h-1 bg-amber-500 mb-6"></div>
+              </motion.div>
+
+              {/* Right - FAQ Accordion & Description */}
+              <div className="space-y-6">
+                {/* FAQ Items */}
+                <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="space-y-4">
+                  {faqs.map((faq, index) => (
+                    <motion.div
+                      key={faq.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="bg-gradient-to-br from-amber-400 to-yellow-500 rounded-xl shadow-md hover:shadow-lg  transition-all duration-300 overflow-hidden border border-yellow-500"
+                    >
+                      <button onClick={() => toggleFAQ(faq.id)} className="w-full px-6 py-5 flex items-center justify-between text-left transition-colors duration-200">
+                        <span className="font-bold text-gray-900 pr-4 text-sm sm:text-base">{faq.question}</span>
+                        <motion.div animate={{ rotate: openFAQ === faq.id ? 180 : 0 }} transition={{ duration: 0.3 }} className="flex-shrink-0">
+                          <div className="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center">
+                            <ChevronDown size={20} className="text-white" />
+                          </div>
+                        </motion.div>
+                      </button>
+
+                      <AnimatePresence>
+                        {openFAQ === faq.id && (
+                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }} className="overflow-hidden">
+                            <div className="bg-white px-6 py-4 text-gray-600 leading-relaxed text-sm sm:text-base">{faq.answer}</div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -993,7 +1242,7 @@ const Homepage = () => {
         </div>
       </section>
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white py-12">
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           <div className="md:col-span-1 flex flex-col items-center md:items-start">
             <h3 className="text-2xl font-extrabold mb-3 text-amber-400">Nuansa Grafika</h3>
