@@ -6,7 +6,6 @@ import {
   Mail,
   MapPin,
   Menu,
-  Star,
   Check,
   Package,
   FileText,
@@ -27,7 +26,11 @@ import {
   ChevronLeft,
   ChevronRight,
   ZoomIn,
+  Star,
+  StarHalf,
 } from 'lucide-react';
+import BackgroundParticles from './components/BackgroundParticles';
+
 import ContactSection from './components/ContactSection';
 
 const Homepage = () => {
@@ -36,7 +39,10 @@ const Homepage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [openFAQ, setOpenFAQ] = useState(null);
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
+  const [xPosition, setXPosition] = useState(0);
 
   // kategori
   const categories = [
@@ -57,7 +63,7 @@ const Homepage = () => {
       id: 1,
       name: 'Banner Outdoor Flexi 280gsm',
       category: 'banner',
-      price: 'Mulai dari Rp 25.000 / Meter',
+      price: 'Mulai dari Rp 20.000 / Meter',
       images: ['/assets/banner/b-1.jpg', '/assets/banner/b-2.jpg', '/assets/banner/b-3.jpg'],
       description: 'Banner outdoor berkualitas untuk acara, promosi, atau branding toko. Harga tergantung jenis bahan',
       details: 'Tidak ada minimum pemesanan. Lama pengerjaan 1–2 hari kerja.',
@@ -77,7 +83,7 @@ const Homepage = () => {
       id: 3,
       name: 'X-Banner Standar + Cetak',
       category: 'banner',
-      price: 'Mulai dari Rp 25.000 / Meter',
+      price: 'Mulai dari Rp 60.000',
       images: ['/assets/banner/xb-1.jpg', '/assets/banner/xb-2.jpg', '/assets/banner/xb-3.jpg'],
       description: 'Paket lengkap X-Banner dengan bahan flexi standar, cocok untuk event dan display toko. Harga tergantung dari jenis bahan',
       details: 'Tidak ada minimum pemesanan. Pengerjaan 1 hari kerja.',
@@ -284,7 +290,82 @@ const Homepage = () => {
     },
   ];
 
+  const features = ['Kualitas Premium & Warna Konsisten', 'Cetak Kilat (One Day Service)', 'Harga Kompetitif untuk Semua Kebutuhan', 'Pemesanan Online Mudah & Praktis'];
+
+  const productItems = [
+    { img: '/images/1.png', delay: 0 },
+    { img: '/images/9.jpg', delay: 0.1 },
+    { img: '/images/2.png', delay: 0.2 },
+    { img: '/images/7.jpg', delay: 0.3 },
+  ];
+
+  // Review Data
+  const reviews = [
+    {
+      id: 1,
+      name: 'Budi Santoso',
+      location: 'Jakarta',
+      rating: 4.5,
+      teks: 'Pelayanan sangat cepat dan hasil cetakan berkualitas tinggi. Saya sangat puas dengan One Day Service mereka. Rekomendasi banget untuk yang butuh cetak cepat!',
+    },
+    {
+      id: 2,
+      name: 'Siti Nurhaliza',
+      location: 'Tangerang',
+      rating: 5,
+      teks: 'Harga kompetitif dan hasil memuaskan. Tim sangat responsif dalam menjawab pertanyaan. Sudah langganan di sini untuk semua kebutuhan cetak kantor.',
+    },
+    {
+      id: 3,
+      name: 'Ahmad Rizki',
+      location: 'Depok',
+      rating: 4.5,
+      teks: 'Kualitas cetak warna sangat tajam dan konsisten. Pengerjaan tepat waktu sesuai janji. Sangat profesional!',
+    },
+    {
+      id: 4,
+      name: 'Dewi Lestari',
+      location: 'Bekasi',
+      rating: 5,
+      teks: 'Sudah beberapa kali order untuk kebutuhan event dan selalu puas. Hasil cetakan banner dan brosur sangat bagus. Terima kasih Nuansa Grafika!',
+    },
+  ];
+
+  // FAQ Data
+  const faqs = [
+    {
+      id: 1,
+      question: 'Apa itu layanan One Day Service?',
+      answer: 'One Day Service adalah layanan cetak kilat kami di mana pesanan Anda akan selesai dalam waktu 24 jam. Layanan ini tersedia untuk berbagai jenis produk seperti dokumen, brosur, dan banner dengan minimum order tertentu.',
+    },
+    {
+      id: 2,
+      question: 'Apakah ada minimum order untuk cetak?',
+      answer:
+        'Minimum order berbeda-beda tergantung jenis produk. Untuk cetak dokumen biasa tidak ada minimum order, namun untuk produk khusus seperti buku atau packaging ada minimum order. Silakan hubungi kami untuk informasi lebih detail.',
+    },
+    {
+      id: 3,
+      question: 'Bagaimana cara melakukan pemesanan?',
+      answer:
+        'Anda bisa melakukan pemesanan melalui WhatsApp, telepon, email, atau datang langsung ke toko kami. Kirimkan file yang akan dicetak beserta spesifikasi yang diinginkan, kemudian tim kami akan memberikan quotation dan estimasi waktu pengerjaan.',
+    },
+    {
+      id: 4,
+      question: 'Apakah bisa revisi desain sebelum cetak?',
+      answer: 'Tentu saja! Kami akan mengirimkan proof/sample desain sebelum proses cetak dimulai. Anda bisa melakukan revisi hingga desain sesuai dengan keinginan Anda. Kepuasan pelanggan adalah prioritas kami.',
+    },
+    {
+      id: 5,
+      question: 'Apa saja metode pembayaran yang tersedia?',
+      answer: 'Kami menerima berbagai metode pembayaran termasuk transfer bank (BCA, Mandiri, BRI), e-wallet (GoPay, OVO, Dana), dan pembayaran tunai. Untuk order dalam jumlah besar, kami juga menerima pembayaran secara bertahap.',
+    },
+  ];
+
   const filteredProducts = activeCategory === 'all' ? products : products.filter((p) => p.category === activeCategory);
+  const allReviews = [...reviews, ...reviews, ...reviews];
+  const cardWidth = 320 + 24; // width + gap
+  const loopWidth = reviews.length * cardWidth;
 
   const checkScrollTop = () => {
     if (!showScroll && window.pageYOffset > 400) {
@@ -299,6 +380,13 @@ const Homepage = () => {
   };
 
   useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % productItems.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('scroll', checkScrollTop);
     return () => {
       window.removeEventListener('scroll', checkScrollTop);
@@ -311,6 +399,23 @@ const Homepage = () => {
     }
   }, [selectedProduct]);
 
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setXPosition((prev) => {
+        const newPosition = prev - 1;
+        // Reset position when one full loop is completed
+        if (Math.abs(newPosition) >= loopWidth) {
+          return newPosition + loopWidth;
+        }
+        return newPosition;
+      });
+    }, 20);
+
+    return () => clearInterval(interval);
+  }, [isPaused, loopWidth]);
+
   const nextImage = () => {
     if (selectedProduct) {
       setCurrentImageIndex((prev) => (prev + 1) % selectedProduct.images.length);
@@ -321,6 +426,23 @@ const Homepage = () => {
     if (selectedProduct) {
       setCurrentImageIndex((prev) => (prev - 1 + selectedProduct.images.length) % selectedProduct.images.length);
     }
+  };
+
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (rating >= i) {
+        // Full star
+        stars.push(<Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />);
+      } else if (rating > i - 1 && rating < i) {
+        // Half star
+        stars.push(<StarHalf key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />);
+      } else {
+        // Empty star
+        stars.push(<Star key={i} className="w-5 h-5 text-gray-300" />);
+      }
+    }
+    return stars;
   };
 
   const containerVariants = {
@@ -360,92 +482,10 @@ const Homepage = () => {
     },
   };
 
-  const features = ['Kualitas Premium & Warna Konsisten', 'Cetak Kilat (One Day Service)', 'Harga Kompetitif untuk Semua Kebutuhan', 'Pemesanan Online Mudah & Praktis'];
-
-  const productIcons = [
-    { Icon: Book, delay: 0, color: 'from-blue-400 to-blue-600' },
-    { Icon: Printer, delay: 0.1, color: 'from-purple-400 to-purple-600' },
-    { Icon: Image, delay: 0.2, color: 'from-pink-400 to-pink-600' },
-    { Icon: Shirt, delay: 0.3, color: 'from-orange-400 to-orange-600' },
-  ];
-
-  // Review Data
-  const reviews = [
-    {
-      id: 1,
-      name: 'Budi Santoso',
-      location: 'Jakarta',
-      rating: 5,
-      review: 'Pelayanan sangat cepat dan hasil cetakan berkualitas tinggi. Saya sangat puas dengan One Day Service mereka. Rekomendasi banget untuk yang butuh cetak cepat!',
-    },
-    {
-      id: 2,
-      name: 'Siti Nurhaliza',
-      location: 'Tangerang',
-      rating: 5,
-      review: 'Harga kompetitif dan hasil memuaskan. Tim sangat responsif dalam menjawab pertanyaan. Sudah langganan di sini untuk semua kebutuhan cetak kantor.',
-    },
-    {
-      id: 3,
-      name: 'Ahmad Rizki',
-      location: 'Depok',
-      rating: 5,
-      review: 'Kualitas cetak warna sangat tajam dan konsisten. Pengerjaan tepat waktu sesuai janji. Sangat profesional!',
-    },
-    {
-      id: 4,
-      name: 'Dewi Lestari',
-      location: 'Bekasi',
-      rating: 5,
-      review: 'Sudah beberapa kali order untuk kebutuhan event dan selalu puas. Hasil cetakan banner dan brosur sangat bagus. Terima kasih Nuansa Grafika!',
-    },
-  ];
-
-  // FAQ Data
-  const faqs = [
-    {
-      id: 1,
-      question: 'Apa itu layanan One Day Service?',
-      answer: 'One Day Service adalah layanan cetak kilat kami di mana pesanan Anda akan selesai dalam waktu 24 jam. Layanan ini tersedia untuk berbagai jenis produk seperti dokumen, brosur, dan banner dengan minimum order tertentu.',
-    },
-    {
-      id: 2,
-      question: 'Apakah ada minimum order untuk cetak?',
-      answer:
-        'Minimum order berbeda-beda tergantung jenis produk. Untuk cetak dokumen biasa tidak ada minimum order, namun untuk produk khusus seperti buku atau packaging ada minimum order. Silakan hubungi kami untuk informasi lebih detail.',
-    },
-    {
-      id: 3,
-      question: 'Bagaimana cara melakukan pemesanan?',
-      answer:
-        'Anda bisa melakukan pemesanan melalui WhatsApp, telepon, email, atau datang langsung ke toko kami. Kirimkan file yang akan dicetak beserta spesifikasi yang diinginkan, kemudian tim kami akan memberikan quotation dan estimasi waktu pengerjaan.',
-    },
-    {
-      id: 4,
-      question: 'Apakah bisa revisi desain sebelum cetak?',
-      answer: 'Tentu saja! Kami akan mengirimkan proof/sample desain sebelum proses cetak dimulai. Anda bisa melakukan revisi hingga desain sesuai dengan keinginan Anda. Kepuasan pelanggan adalah prioritas kami.',
-    },
-    {
-      id: 5,
-      question: 'Apa saja metode pembayaran yang tersedia?',
-      answer: 'Kami menerima berbagai metode pembayaran termasuk transfer bank (BCA, Mandiri, BRI), e-wallet (GoPay, OVO, Dana), dan pembayaran tunai. Untuk order dalam jumlah besar, kami juga menerima pembayaran secara bertahap.',
-    },
-  ];
-
-  const toggleFAQ = (id) => {
-    setOpenFAQ(openFAQ === id ? null : id);
-  };
-
-  const particles = [...Array(30)].map((_, i) => ({
-    id: i,
-    initialX: Math.random() * 100,
-    initialY: Math.random() * 100,
-  }));
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 via-white to-gray-50 font-sans scroll-smooth overflow-x-hidden w-full">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-xl shadow-2xl z-50 ">
+      <nav className="fixed top-0 left-0 right-0 bg-gray-900 backdrop-blur-xl shadow-2xl z-50 ">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <a
@@ -589,55 +629,7 @@ const Homepage = () => {
       {/* Hero */}
       <section id="home" className="relative min-h-[100vh] md:min-h-[100vh] pt-32 md:pt-34 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 overflow-hidden">
         <div className="absolute inset-0">
-          {/* Orbs */}
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="absolute w-[500px] h-[500px] bg-amber-400 rounded-full mix-blend-multiply filter blur-[120px] top-0 left-0 opacity-30"
-          />
-
-          <motion.div
-            animate={{
-              scale: [1.2, 1, 1.2],
-              opacity: [0.4, 0.6, 0.4],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: 1,
-            }}
-            className="absolute w-[600px] h-[600px] bg-yellow-500 rounded-full mix-blend-multiply filter blur-[120px] bottom-0 right-0 opacity-30"
-          />
-
-          {particles.map((particle) => (
-            <motion.div
-              key={particle.id}
-              className="absolute w-1 h-1 bg-amber-400 rounded-full"
-              style={{
-                left: `${particle.initialX}%`,
-                top: `${particle.initialY}%`,
-              }}
-              animate={{
-                x: [0, Math.random() * 40 - 20, Math.random() * 40 - 20, 0],
-                y: [0, Math.random() * 40 - 20, Math.random() * 40 - 20, 0],
-                opacity: [0.3, 0.8, 0.4, 0.3],
-              }}
-              transition={{
-                duration: 4 + Math.random() * 3, // 4–7s
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-          ))}
-
+          <BackgroundParticles />
           {/* Grid Pattern */}
           <div className="absolute inset-0 bg-[linear-gradient(rgba(251,191,36,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(251,191,36,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
         </div>
@@ -738,112 +730,57 @@ const Homepage = () => {
                 </a>
               </motion.div>
             </div>
+
             {/* Right Content*/}
             <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.3, type: 'spring' }} className="relative hidden lg:flex justify-center items-center">
-              {/* Main Card */}
-              <motion.div className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-amber-500/20 max-w-md w-full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
-                {/* Glow Effect */}
+              <motion.div className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-6 shadow-2xl border border-amber-500/20 max-w-md w-full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-400/20 to-yellow-500/20 rounded-3xl blur-xl -z-10" />
 
-                <div className="grid grid-cols-2 gap-5">
-                  {productIcons.map(({ Icon, delay, color }, index) => (
+                <div className="grid grid-cols-3 grid-rows-3 gap-3 h-[400px]">
+                  {/* Large Image - Takes 2x2 */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5, type: 'spring' }}
+                    whileHover={{ scale: 0.98, rotate: -2 }}
+                    className="col-span-2 row-span-2 overflow-hidden rounded-2xl shadow-xl cursor-pointer group"
+                  >
+                    <img src={productItems[0].img} alt="featured" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </motion.div>
+
+                  {/* Small Images */}
+                  {productItems.slice(1).map((item, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        delay: 0.5 + delay,
-                        type: 'spring',
-                        stiffness: 100,
-                        damping: 12,
-                      }}
-                      whileHover={{
-                        y: -10,
-                        transition: { duration: 0.3 },
-                      }}
-                      className={`bg-gradient-to-br ${color} rounded-2xl p-6 shadow-lg flex items-center justify-center ${index % 2 === 1 ? 'mt-8' : ''} cursor-pointer group`}
-                      style={{ height: index % 2 === 0 ? '160px' : '140px' }}
+                      transition={{ delay: 0.6 + index * 0.1, type: 'spring' }}
+                      whileHover={{ scale: 1.05, rotate: 3 }}
+                      className={`overflow-hidden rounded-xl shadow-lg cursor-pointer group ${index === 0 ? 'col-span-1 row-span-1' : index === 1 ? 'col-span-1 row-span-2' : 'col-span-2 row-span-1'}`}
                     >
-                      <Icon size={44} className="text-white drop-shadow-lg" />
+                      <img src={item.img} alt="product" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                     </motion.div>
                   ))}
                 </div>
 
-                {/* Decorative Elements */}
+                {/* Decorative orbs */}
                 <motion.div className="absolute -top-4 -right-4 w-24 h-24 bg-amber-400 rounded-full opacity-20 blur-2xl" animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 3, repeat: Infinity }} />
                 <motion.div className="absolute -bottom-4 -left-4 w-32 h-32 bg-yellow-500 rounded-full opacity-20 blur-2xl" animate={{ scale: [1.2, 1, 1.2] }} transition={{ duration: 4, repeat: Infinity }} />
               </motion.div>
 
-              {/* Floating Badge - Enhanced */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                  y: [0, -15, 0],
-                }}
-                transition={{
-                  opacity: { duration: 0.8, delay: 0.7 },
-                  x: { duration: 0.8, delay: 0.7 },
-                  y: {
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                    delay: 1,
-                  },
-                }}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className="absolute bottom-10 -left-6 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-2xl p-5 shadow-2xl border-4 border-white cursor-pointer"
-              >
-                <div className="text-center font-bold text-gray-900">
-                  <motion.div className="text-4xl mb-1" animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 2, repeat: Infinity }}>
-                    24 Jam
-                  </motion.div>
-                  <div className="text-sm font-semibold">Cetak Kilat</div>
-                </div>
-
-                {/* Pulse Ring */}
-                <motion.div
-                  className="absolute inset-0 border-4 border-amber-400 rounded-2xl"
-                  animate={{
-                    scale: [1, 1.2],
-                    opacity: [1, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'easeOut',
-                  }}
-                />
-              </motion.div>
-
               {/* Floating Icons */}
               <motion.div
-                animate={{
-                  y: [0, -20, 0],
-                  rotate: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
+                animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                 className="absolute top-0 right-0 bg-white/10 backdrop-blur-sm p-3 rounded-full border border-white/20"
               >
                 <Sparkles className="text-amber-400" size={24} />
               </motion.div>
 
               <motion.div
-                animate={{
-                  y: [0, 20, 0],
-                  rotate: [0, -10, 0],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  delay: 1,
-                }}
+                animate={{ y: [0, 20, 0], rotate: [0, -10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
                 className="absolute bottom-20 right-0 bg-white/10 backdrop-blur-sm p-3 rounded-full border border-white/20"
               >
                 <Zap className="text-yellow-400" size={24} />
@@ -871,7 +808,7 @@ const Homepage = () => {
         </motion.div>
       </section>
       {/* Product Section */}
-      <section id="products" className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section id="products" className="py-20 bg-gradient-to-b from-gray-50 via-white to-blue-50">
         <div className="container mx-auto px-4">
           {/* Header */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: 'easeOut' }} className="text-center mb-16">
@@ -1005,13 +942,14 @@ const Homepage = () => {
         </div>
       </section>
       {/* About Section */}
-      <section id="about" className="py-20 bg-gray-50">
+      <section id="about" className="py-20 bg-gradient-to-b from-blue-50 to-amber-50 ">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative">
+          <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column */}
+            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="relative block md:hidden lg:block">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-amber-400/50">
-                <img src="/assets/sp-banner.jpg" alt="about image" className="w-full h-96 object-left" />
-                <div className="absolute inset-0 bg-yellow-300/10 transition-opacity"></div>
+                <img src="/images/banner-1.png" alt="about image" className="w-full h-96 object-cover object-left" />
+                <div className="absolute inset-0 bg-black/35 transition-opacity"></div>
               </div>
 
               <motion.div
@@ -1020,19 +958,20 @@ const Homepage = () => {
                 transition={{ delay: 0.3, duration: 0.5 }}
                 className="absolute -bottom-6 -right-6 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-3xl p-6 shadow-2xl border-4 border-white"
               >
-                <div className="text-center">
+                <div className="text-center ">
                   <div className="text-4xl font-extrabold text-gray-900 mb-1">10+</div>
                   <div className="text-sm font-semibold text-gray-800">Tahun Pengalaman</div>
                 </div>
               </motion.div>
             </motion.div>
 
+            {/* Right Column */}
             <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
                 Mengenal Lebih Jauh <span className="text-amber-500">Kami</span>
               </h2>
 
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed border-l-4 border-amber-400 pl-4 bg-amber-50 p-3 rounded-r-lg shadow-sm">
+              <p className="text-lg text-gray-700 mb-6 leading-relaxed border-l-4 border-blue-400 pl-4 bg-blue-50/80 p-3 rounded-r-lg shadow-sm">
                 Nuansa Grafika Printing berfokus pada layanan percetakan terbaik mulai dari proses desain, pencetakan, hingga finishing. Dengan Quality Control yang ketat, kami memastikan setiap produk memiliki kualitas terbaik dan dapat
                 dikirim dengan cepat.
               </p>
@@ -1043,11 +982,11 @@ const Homepage = () => {
               </p>
 
               <div className="grid grid-cols-2 gap-6">
-                <div className="bg-gray-100 rounded-xl p-5 border-t-4 border-gray-900 shadow-md hover:shadow-lg transition-shadow">
+                <div className="bg-white rounded-xl p-5 border-t-4 border-gray-900 shadow-md hover:shadow-lg transition-shadow">
                   <div className="text-4xl font-extrabold text-gray-900 mb-1">500+</div>
                   <div className="text-sm text-gray-700 font-medium">Project Selesai</div>
                 </div>
-                <div className="bg-gray-100 rounded-xl p-5 border-t-4 border-amber-500 shadow-md hover:shadow-lg transition-shadow">
+                <div className="bg-white rounded-xl p-5 border-t-4 border-amber-500 shadow-md hover:shadow-lg transition-shadow">
                   <div className="text-4xl font-extrabold text-amber-600 mb-1">99%</div>
                   <div className="text-sm text-gray-700 font-medium">Kepuasan Pelanggan</div>
                 </div>
@@ -1056,122 +995,149 @@ const Homepage = () => {
           </div>
         </div>
       </section>
-      {/* ========== REVIEW SECTION ========== */}
-      <section className="py-16 md:py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            {/* Header with Left-aligned Description */}
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-12 md:mb-16">
-              {/* Left - Description */}
-              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Review Section</h2>
-                <div className="w-20 h-1 bg-amber-500 mb-6"></div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Let happy users convince the rest.</h3>
-                <p className="text-gray-600 leading-relaxed">Testimonials with names, ratings, and short blurbs help build authenticity and trust.</p>
-              </motion.div>
+      {/* Review Section */}
+      <section id="review" className="py-12 md:py-24 bg-gradient-to-b from-amber-50 to-blue-50 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(251,191,36,0.1),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(251,191,36,0.1),transparent_50%)]" />
+        </div>
 
-              {/* Right - First Review Card */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                whileHover={{ y: -5 }}
-                className="bg-gray-50 rounded-2xl p-6 sm:p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
-              >
-                <Quote className="text-amber-500 mb-4" size={32} />
-                <div className="flex gap-1 mb-4">
-                  {[...Array(reviews[0].rating)].map((_, i) => (
-                    <Star key={i} size={18} className="text-amber-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-6 leading-relaxed">{reviews[0].review}</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-lg">{reviews[0].name.charAt(0)}</div>
-                  <div>
-                    <p className="font-bold text-gray-900">{reviews[0].name}</p>
-                    <p className="text-sm text-gray-500">{reviews[0].location}</p>
-                  </div>
-                </div>
-              </motion.div>
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-8 md:mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-700 rounded-full text-sm font-semibold mb-4">
+              <Star className="w-4 h-4 fill-amber-500" />
+              <span>Testimoni Pelanggan</span>
             </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Apa Kata <span className="text-amber-600">Pelanggan Kami</span>
+            </h2>
+            <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto px-4">Kepuasan pelanggan adalah prioritas utama kami. Simak pengalaman mereka yang telah menggunakan layanan kami.</p>
+          </motion.div>
+        </div>
 
-            {/* Bottom 3 Review Cards */}
-            <div className="grid md:grid-cols-3 gap-6">
-              {reviews.slice(1, 4).map((review, index) => (
+        {/* Infinite Scroll Reviews */}
+        <div className="relative">
+          <div className="flex gap-4 md:gap-6 py-4" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+            <motion.div className="flex gap-4 md:gap-6 shrink-0" style={{ x: xPosition }}>
+              {allReviews.map((review, i) => (
                 <motion.div
-                  key={review.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 * (index + 1) }}
-                  whileHover={{ y: -5 }}
-                  className="bg-gray-50 rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+                  key={i}
+                  whileHover={{
+                    scale: 1.05,
+                    rotateY: 5,
+                    z: 50,
+                  }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 100,
+                    damping: 20,
+                  }}
+                  className="relative bg-white rounded-2xl p-4 sm:p-6 w-72 sm:w-80 shrink-0 shadow-xl border border-gray-100 hover:border-amber-300 hover:shadow-2xl transition-all duration-300 group"
+                  style={{ transformStyle: 'preserve-3d' }}
                 >
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} size={16} className="text-amber-400 fill-current" />
-                    ))}
+                  {/* Quote Icon */}
+                  <div className="absolute -top-3 -left-3 bg-gradient-to-br from-amber-400 to-amber-500 rounded-full p-2 sm:p-3 shadow-lg">
+                    <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
-                  <p className="text-gray-700 mb-6 leading-relaxed text-sm">{review.review}</p>
+
+                  {/* Stars Based on rating */}
+                  <div className="flex gap-1 mb-3 sm:mb-4">{renderStars(review.rating)}</div>
+
+                  {/* Review Text */}
+                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 min-h-[60px]">"{review.teks}"</p>
+
+                  {/* Divider */}
+                  <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-3 sm:mb-4" />
+
+                  {/* Customer Info */}
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold">{review.name.charAt(0)}</div>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-md">{review.name.charAt(0)}</div>
                     <div>
-                      <p className="font-bold text-gray-900 text-sm">{review.name}</p>
-                      <p className="text-xs text-gray-500">{review.location}</p>
+                      <p className="font-bold text-gray-900 text-sm sm:text-base">{review.name}</p>
+                      <p className="text-xs sm:text-sm text-gray-500">{review.location}</p>
                     </div>
                   </div>
+
+                  {/* Hover Glow Effect */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-400/0 via-amber-400/5 to-amber-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </motion.div>
               ))}
+            </motion.div>
+          </div>
+
+          {/* Gradient Overlays - Hidden on mobile for better visibility */}
+          <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-r from-amber-50 via-amber-50/80 to-transparent pointer-events-none z-10" />
+          <div className="hidden sm:block absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-l from-blue-50 via-blue-50/80 to-transparent pointer-events-none z-10" />
+        </div>
+
+        {/* Bottom Stats */}
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }} className="container mx-auto px-4 sm:px-6 mt-8 md:mt-16">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-center">
+            <div className="group flex-1 min-w-[100px]">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-amber-600 mb-1 group-hover:scale-110 transition-transform">500+</div>
+              <div className="text-gray-600 text-xs sm:text-sm md:text-base">Pelanggan Puas</div>
+            </div>
+            <div className="w-px h-12 sm:h-16 bg-gray-300" />
+            <div className="group flex-1 min-w-[100px]">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-amber-600 mb-1 group-hover:scale-110 transition-transform">5.0</div>
+              <div className="text-gray-600 text-xs sm:text-sm md:text-base">Rating Tertinggi</div>
+            </div>
+            <div className="w-px h-12 sm:h-16 bg-gray-300" />
+            <div className="group flex-1 min-w-[100px]">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-amber-600 mb-1 group-hover:scale-110 transition-transform">24/7</div>
+              <div className="text-gray-600 text-xs sm:text-sm md:text-base">Layanan Support</div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
-      {/* ========== FAQ SECTION ========== */}
-      <section className="py-16 md:py-20 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-              {/* Left - FAQ Title */}
-              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:sticky lg:top-24">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">FAQ Section</h2>
-                <div className="w-20 h-1 bg-amber-500 mb-6"></div>
-              </motion.div>
+      {/* FAQ Section */}
+      <section id="faq" className="py-20 bg-gradient-to-b from-blue-50 via-gray-50 to-white relative">
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 opacity-[0.06]">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(251,191,36,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(251,191,36,0.15)_1px,transparent_1px)] bg-[size:64px_64px]" />
+        </div>
 
-              {/* Right - FAQ Accordion & Description */}
-              <div className="space-y-6">
-                {/* FAQ Items */}
-                <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="space-y-4">
-                  {faqs.map((faq, index) => (
-                    <motion.div
-                      key={faq.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="bg-gradient-to-br from-amber-400 to-yellow-500 rounded-xl shadow-md hover:shadow-lg  transition-all duration-300 overflow-hidden border border-yellow-500"
-                    >
-                      <button onClick={() => toggleFAQ(faq.id)} className="w-full px-6 py-5 flex items-center justify-between text-left transition-colors duration-200">
-                        <span className="font-bold text-gray-900 pr-4 text-sm sm:text-base">{faq.question}</span>
-                        <motion.div animate={{ rotate: openFAQ === faq.id ? 180 : 0 }} transition={{ duration: 0.3 }} className="flex-shrink-0">
-                          <div className="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center">
-                            <ChevronDown size={20} className="text-white" />
-                          </div>
-                        </motion.div>
-                      </button>
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+              Pertanyaan yang <span className="text-amber-500">Sering Ditanyakan</span>
+            </h2>
+            <div className="w-24 h-1 bg-amber-500 mx-auto mb-4"></div>
+            <p className="text-gray-600 max-w-2xl mx-auto">Informasi lengkap seputar layanan, waktu pengerjaan, dan prosedur pemesanan.</p>
+          </motion.div>
 
-                      <AnimatePresence>
-                        {openFAQ === faq.id && (
-                          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }} className="overflow-hidden">
-                            <div className="bg-white px-6 py-4 text-gray-600 leading-relaxed text-sm sm:text-base">{faq.answer}</div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+          <div className="space-y-4 max-w-3xl mx-auto">
+            {faqs.map((faq, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="backdrop-blur-sm bg-white border border-gray-200 hover:border-amber-400 rounded-2xl shadow-md hover:shadow-xl transition-all overflow-hidden"
+              >
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full p-6 cursor-pointer text-left">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-900 font-semibold text-lg pr-4">{faq.question}</span>
+                    <motion.div animate={{ rotate: openFaq === i ? 180 : 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
+                      <ChevronDown size={20} className="text-amber-500 flex-shrink-0" />
                     </motion.div>
-                  ))}
-                </motion.div>
-              </div>
-            </div>
+                  </div>
+                </button>
+
+                <AnimatePresence>
+                  {openFaq === i && (
+                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }} className="overflow-hidden">
+                      <motion.div initial={{ y: -10 }} animate={{ y: 0 }} exit={{ y: -10 }} transition={{ duration: 0.2 }} className="px-6 pb-6">
+                        <div className="w-full h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent mb-4" />
+                        <p className="text-gray-700 leading-relaxed text-base">{faq.answer}</p>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -1182,11 +1148,17 @@ const Homepage = () => {
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
               Kontak <span className="text-amber-500">Kami</span>
             </h2>
-            <p className="text-lg text-gray-600">Jangan ragu menghubungi kami untuk konsultasi gratis atau pemesanan.</p>
+            <p className="text-lg text-gray-600">Jangan ragu menghubungi kami untuk konsultasi atau pemesanan langsung.</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="bg-white rounded-3xl shadow-2xl p-8 border-t-8 border-amber-500">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="bg-white rounded-3xl shadow-xl border border-gray-800 p-8 border-t-8 border-amber-500 hover:shadow-2xl transition-shadow"
+            >
               <h3 className="text-3xl font-bold text-gray-900 mb-8">Informasi Kontak</h3>
 
               <div className="space-y-8">
@@ -1195,20 +1167,18 @@ const Homepage = () => {
                     <MapPin className="text-gray-900" size={24} />
                   </div>
                   <div>
-                    <p className="font-bold text-gray-900 mb-1 text-lg">Alamat </p>
-                    <p className="text-gray-700">Jl. Agung Raya 1 RT.9/RW.2, Lenteng Agung, Jagakarsa, Jakarta Selatan</p>
+                    <p className="font-bold text-gray-900 mb-1 text-lg">Alamat</p>
+                    <p className="text-gray-600 leading-relaxed">Jl. Agung Raya 1 RT.9/RW.2, Lenteng Agung, Jagakarsa, Jakarta Selatan</p>
                   </div>
                 </motion.div>
 
                 <motion.div whileHover={{ x: 5 }} className="flex items-start space-x-4">
-                  <div className="flex items-start space-x-4 group w-full">
-                    <div className="bg-gradient-to-br from-amber-400 to-yellow-500 p-4 rounded-xl shadow-lg flex-shrink-0">
-                      <Phone className="text-gray-900" size={24} />
-                    </div>
-                    <div>
-                      <p className="font-bold text-gray-900 mb-1 text-lg transition-colors">Nomor Telepon</p>
-                      <p className="text-gray-700 ">+62 813-1208-8319 / +62 815-9553-889</p>
-                    </div>
+                  <div className="bg-gradient-to-br from-amber-400 to-yellow-500 p-4 rounded-xl shadow-lg flex-shrink-0">
+                    <Phone className="text-gray-900" size={24} />
+                  </div>
+                  <div>
+                    <p className="font-bold text-gray-900 mb-1 text-lg">Nomor Telepon</p>
+                    <p className="text-gray-600 leading-relaxed">+62 815 9553 889 / +62 856 7281 994</p>
                   </div>
                 </motion.div>
 
@@ -1217,14 +1187,15 @@ const Homepage = () => {
                     <Mail className="text-gray-900" size={24} />
                   </div>
                   <div>
-                    <p className="font-bold text-gray-900 mb-1 text-lg">Email </p>
-                    <p className="text-gray-700">nuansagrafika@yahoo.co.id</p>
+                    <p className="font-bold text-gray-900 mb-1 text-lg">Email</p>
+                    <p className="text-gray-600 leading-relaxed">nuansa_grafika@yahoo.co.id</p>
                   </div>
                 </motion.div>
               </div>
             </motion.div>
-            {/* Mini Map */}
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="rounded-3xl overflow-hidden shadow-2xl">
+
+            {/* Map Container */}
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="rounded-3xl overflow-hidden shadow-xl border-2 border-gray-800">
               <div className="w-full h-full min-h-[400px] flex items-center justify-center">
                 <iframe
                   title="Lokasi Nuansa Grafika"
@@ -1246,19 +1217,19 @@ const Homepage = () => {
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           <div className="md:col-span-1 flex flex-col items-center md:items-start">
             <h3 className="text-2xl font-extrabold mb-3 text-amber-400">Nuansa Grafika</h3>
-            <p className="text-gray-400 text-sm max-w-xs">Solusi cetak cepat, berkualitas, dan terpercaya untuk semua kebutuhan Anda.</p>
+            <p className="text-gray-300 text-sm max-w-xs">Solusi cetak cepat, berkualitas, dan terpercaya untuk semua kebutuhan Anda.</p>
           </div>
 
           <div className="md:col-span-1 flex flex-col items-center md:items-start">
             <h4 className="font-bold text-lg mb-4 text-white">Hubungi</h4>
             <ul className="space-y-2">
-              <li className="text-gray-400 flex items-center justify-center md:justify-start">
-                <Phone size={16} className="mr-2 text-amber-400" /> +62 813-1208-8319
+              <li className="text-gray-300 flex items-center justify-center md:justify-start">
+                <Phone size={16} className="mr-2 text-amber-400" /> +62 815 9553 889 / +62 856 7281 994
               </li>
-              <li className="text-gray-400 flex items-center justify-center md:justify-start">
-                <Mail size={16} className="mr-2 text-amber-400" /> nuansagrafika@yahoo.co.id
+              <li className="text-gray-300 flex items-center justify-center md:justify-start">
+                <Mail size={16} className="mr-2 text-amber-400" /> nuansa_grafika@yahoo.co.id
               </li>
-              <li className="text-gray-400 flex items-start justify-center md:justify-start">
+              <li className="text-gray-300 flex items-start justify-center md:justify-start">
                 <MapPin size={16} className="mt-1 mr-2 text-amber-400 flex-shrink-0" /> Jl. Agung Raya 1, Jakarta Selatan
               </li>
             </ul>
@@ -1286,7 +1257,7 @@ const Homepage = () => {
       {/* Floating Buttons */}
       <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
         <motion.a
-          href="https://wa.me/6281312088319?text=Halo%20Nuansa%20Grafika,%20saya%20ingin%20konsultasi%20mengenai%20cetak%20produk."
+          href="https://wa.me/628159553889?text=Halo%20Kak,%20saya%20ingin%20konsultasi%20mengenai%20cetak%20produk."
           target="_blank"
           rel="noopener noreferrer"
           className="bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all flex items-center justify-center"
