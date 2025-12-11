@@ -516,7 +516,6 @@ const Homepage = () => {
                 <p className="text-[12px] md:text-xs lg:text-sm text-gray-300 font-medium">Graphic Design Printing</p>
               </div>
             </a>
-
             <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
               <a
                 href="#home"
@@ -562,12 +561,12 @@ const Homepage = () => {
                 Konsultasi Gratis
               </a>
             </div>
-
             <button className="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
               <Menu size={24} className={`transition-transform duration-300 ${mobileMenuOpen ? 'rotate-90' : ''}`} />
             </button>
           </div>
 
+          {/* Hamburger Menu */}
           <AnimatePresence>
             {mobileMenuOpen && (
               <motion.div
@@ -746,9 +745,7 @@ const Homepage = () => {
             <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.3, type: 'spring' }} className="relative hidden lg:flex justify-center items-center">
               <motion.div className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-6 shadow-2xl border border-amber-500/20 max-w-md w-full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-400/20 to-yellow-500/20 rounded-3xl blur-xl -z-10" />
-
                 <div className="grid grid-cols-3 grid-rows-3 gap-3 h-[400px]">
-                  {/* Large Image - Takes 2x2 */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -759,8 +756,6 @@ const Homepage = () => {
                     <img src={productItems[0].img} alt="featured" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </motion.div>
-
-                  {/* Small Images */}
                   {productItems.slice(1).map((item, index) => (
                     <motion.div
                       key={index}
@@ -774,13 +769,9 @@ const Homepage = () => {
                     </motion.div>
                   ))}
                 </div>
-
-                {/* Decorative orbs */}
                 <motion.div className="absolute -top-4 -right-4 w-24 h-24 bg-amber-400 rounded-full opacity-20 blur-2xl" animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 3, repeat: Infinity }} />
                 <motion.div className="absolute -bottom-4 -left-4 w-32 h-32 bg-yellow-500 rounded-full opacity-20 blur-2xl" animate={{ scale: [1.2, 1, 1.2] }} transition={{ duration: 4, repeat: Infinity }} />
               </motion.div>
-
-              {/* Floating Icons */}
               <motion.div
                 animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -799,7 +790,6 @@ const Homepage = () => {
             </motion.div>
           </div>
         </div>
-        {/* Scroll Indicator */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden lg:block">
           <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 1.5, repeat: Infinity }} className="flex flex-col items-center gap-2 text-gray-400 cursor-pointer hover:text-amber-400 transition-colors">
             <a
@@ -828,8 +818,7 @@ const Homepage = () => {
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">Kami menyediakan beragam layanan cetak, dari skala personal hingga kebutuhan bisnis korporat.</p>
           </motion.div>
-
-          {/* Category Filter - Improved with smooth transitions */}
+          {/* Category Filter */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 }} className="mb-12">
             <div className="flex gap-3 pb-4 overflow-x-auto justify-start md:justify-center scrollbar-hide">
               {categories.map((category, index) => {
@@ -872,8 +861,7 @@ const Homepage = () => {
               })}
             </div>
           </motion.div>
-
-          {/* Products Grid - Enhanced animations */}
+          {/* Products Grid */}
           <AnimatePresence mode="wait">
             {filteredProducts.length > 0 ? (
               <motion.div key={activeCategory} variants={containerVariants} initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -892,14 +880,9 @@ const Homepage = () => {
                     onClick={() => setSelectedProduct(product)}
                     className="relative group cursor-pointer rounded-2xl bg-white shadow-md hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-amber-400 transition-all duration-300"
                   >
-                    {/* Image Container */}
                     <div className="relative overflow-hidden h-64">
                       <motion.img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" whileHover={{ scale: 1.1 }} transition={{ duration: 0.6, ease: 'easeOut' }} />
-
-                      {/* Gradient Overlay */}
                       <motion.div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" initial={{ opacity: 0 }} whileHover={{ opacity: 1 }} transition={{ duration: 0.3 }} />
-
-                      {/* Hover Badge */}
                       <motion.div
                         className="absolute top-3 right-3 bg-amber-400 text-gray-900 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg"
                         initial={{ opacity: 0, x: 20 }}
@@ -916,8 +899,6 @@ const Homepage = () => {
                       <h3 className="font-extrabold text-gray-900 text-lg mb-2 line-clamp-2">{product.name}</h3>
                       <p className="text-amber-600 font-bold text-base mb-2">{product.price}</p>
                       <p className="text-gray-600 text-sm line-clamp-2 mb-3">{product.description}</p>
-
-                      {/* Footer */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-0.5">
                           {[...Array(5)].map((_, i) => (
@@ -962,7 +943,6 @@ const Homepage = () => {
                 <img src="/images/banner-1.png" alt="about image" className="w-full h-96 object-cover object-left" />
                 <div className="absolute inset-0 bg-black/35 transition-opacity"></div>
               </div>
-
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -975,23 +955,19 @@ const Homepage = () => {
                 </div>
               </motion.div>
             </motion.div>
-
             {/* Right Column */}
             <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
                 Mengenal Lebih Jauh <span className="text-amber-500">Kami</span>
               </h2>
-
               <p className="text-lg text-gray-700 mb-6 leading-relaxed border-l-4 border-blue-400 pl-4 bg-blue-50/80 p-3 rounded-r-lg shadow-sm">
                 Nuansa Grafika Printing berfokus pada layanan percetakan terbaik mulai dari proses desain, pencetakan, hingga finishing. Dengan Quality Control yang ketat, kami memastikan setiap produk memiliki kualitas terbaik dan dapat
                 dikirim dengan cepat.
               </p>
-
               <p className="text-lg text-gray-700 mb-8 leading-relaxed">
                 Kepuasan pelanggan adalah prioritas utama kami. Karena itu, kami selalu memberikan hasil cetak yang optimal, pelayanan profesional, dan perhatian penuh pada setiap detail. Komitmen ini kami wujudkan untuk memberikan
                 pengalaman terbaik bagi seluruh pelanggan.
               </p>
-
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-white rounded-xl p-5 border-t-4 border-gray-900 shadow-md hover:shadow-lg transition-shadow">
                   <div className="text-4xl font-extrabold text-gray-900 mb-1">500+</div>
@@ -1006,13 +982,8 @@ const Homepage = () => {
           </div>
         </div>
       </section>
+      {/* Review Section */}
       <section id="review" className="py-12 md:py-24 bg-gradient-to-b from-amber-50 to-blue-50 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(251,191,36,0.1),transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(251,191,36,0.1),transparent_50%)]" />
-        </div>
-
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-8 md:mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-700 rounded-full text-sm font-semibold mb-4">
@@ -1025,7 +996,6 @@ const Homepage = () => {
             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto px-4">Kepuasan pelanggan adalah prioritas utama kami. Simak pengalaman mereka yang telah menggunakan layanan kami.</p>
           </motion.div>
         </div>
-
         {/* Infinite Scroll Reviews */}
         <div className="relative">
           <div className="flex gap-4 md:gap-6 py-4 overflow-hidden" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
@@ -1052,21 +1022,12 @@ const Homepage = () => {
                   className="relative bg-white rounded-2xl p-4 sm:p-6 w-72 sm:w-80 shrink-0 shadow-md border border-gray-100 hover:border-amber-300 hover:shadow-2xl transition-all duration-300 group"
                   style={{ transformStyle: 'preserve-3d' }}
                 >
-                  {/* Quote Icon */}
                   <div className="absolute -top-3 -left-3 bg-gradient-to-br from-amber-400 to-amber-500 rounded-full p-2 sm:p-3 shadow-lg">
                     <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
-
-                  {/* Stars Based on rating */}
                   <div className="flex gap-1 mb-3 sm:mb-4">{renderStars(review.rating)}</div>
-
-                  {/* Review Text */}
                   <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 min-h-[60px]">"{review.teks}"</p>
-
-                  {/* Divider */}
                   <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-3 sm:mb-4" />
-
-                  {/* Customer Info */}
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-md">{review.name.charAt(0)}</div>
                     <div>
@@ -1074,8 +1035,6 @@ const Homepage = () => {
                       <p className="text-xs sm:text-sm text-gray-500">{review.location}</p>
                     </div>
                   </div>
-
-                  {/* Hover Glow Effect */}
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-400/0 via-amber-400/5 to-amber-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </motion.div>
               ))}
@@ -1086,7 +1045,6 @@ const Homepage = () => {
           <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-amber-50 to-transparent pointer-events-none z-10" />
           <div className="hidden sm:block absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-blue-50 to-transparent pointer-events-none z-10" />
         </div>
-
         {/* Bottom Stats */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }} className="container mx-auto px-4 sm:px-6 mt-8 md:mt-16">
           <div className="flex flex-wrap justify-center gap-4 sm:gap-8 text-center">
@@ -1109,11 +1067,6 @@ const Homepage = () => {
       </section>
       {/* FAQ Section */}
       <section id="faq" className="py-20 bg-gradient-to-b from-blue-50 via-gray-50 to-white relative">
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 opacity-[0.06]">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(251,191,36,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(251,191,36,0.15)_1px,transparent_1px)] bg-[size:64px_64px]" />
-        </div>
-
         <div className="container mx-auto px-4 relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
@@ -1122,7 +1075,6 @@ const Homepage = () => {
             <div className="w-24 h-1 bg-amber-500 mx-auto mb-4"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">Informasi lengkap seputar layanan, waktu pengerjaan, dan prosedur pemesanan.</p>
           </motion.div>
-
           <div className="space-y-4 max-w-3xl mx-auto">
             {faqs.map((faq, i) => (
               <motion.div
@@ -1141,7 +1093,6 @@ const Homepage = () => {
                     </motion.div>
                   </div>
                 </button>
-
                 <AnimatePresence>
                   {openFaq === i && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }} className="overflow-hidden">
@@ -1282,7 +1233,6 @@ const Homepage = () => {
         >
           <MessageCircleMore size={28} />
         </motion.a>
-
         <AnimatePresence>
           {showScroll && (
             <motion.button
@@ -1298,7 +1248,7 @@ const Homepage = () => {
           )}
         </AnimatePresence>
       </div>
-      {/* Product Modal with Gallery */}
+      {/* Product Modal */}
       <AnimatePresence>
         {selectedProduct && (
           <motion.div
@@ -1338,7 +1288,7 @@ const Homepage = () => {
               </motion.button>
 
               <div className="grid md:grid-cols-2 gap-4 sm:gap-6 p-4 sm:p-6">
-                {/* Left: Image Gallery */}
+                {/* Left Column */}
                 <div className="space-y-3 sm:space-y-4">
                   <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border-2 sm:border-4 border-amber-400/50">
                     <motion.img
@@ -1369,8 +1319,6 @@ const Homepage = () => {
                         >
                           <ChevronRight size={20} className="sm:w-6 sm:h-6 text-gray-900" />
                         </motion.button>
-
-                        {/* Image Indicators */}
                         <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2">
                           {selectedProduct.images.map((_, idx) => (
                             <motion.button
@@ -1387,8 +1335,6 @@ const Homepage = () => {
                       </>
                     )}
                   </div>
-
-                  {/* Thumbnail Gallery */}
                   {selectedProduct.images.length > 1 && (
                     <div className="grid grid-cols-3 gap-2 sm:gap-3">
                       {selectedProduct.images.map((img, idx) => (
@@ -1405,8 +1351,7 @@ const Homepage = () => {
                     </div>
                   )}
                 </div>
-
-                {/* Right: Product Details */}
+                {/* Right Column */}
                 <div className="space-y-4 sm:space-y-6 overflow-y-auto max-h-[50vh] md:max-h-none pr-2">
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-2 sm:mb-3">{selectedProduct.name}</h3>
@@ -1418,12 +1363,10 @@ const Homepage = () => {
                       <span className="ml-2 text-gray-600 font-medium text-sm sm:text-base">(5.0)</span>
                     </div>
                   </motion.div>
-
                   <motion.div className="border-t border-gray-200 pt-4 sm:pt-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
                     <h4 className="font-bold text-gray-900 text-lg sm:text-xl mb-2 sm:mb-3">Deskripsi Produk</h4>
                     <p className="text-gray-700 leading-relaxed text-sm sm:text-base">{selectedProduct.details}</p>
                   </motion.div>
-
                   <motion.div className="border-t border-gray-200 pt-4 sm:pt-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
                     <h4 className="font-bold text-gray-900 text-lg sm:text-xl mb-3 sm:mb-4">Spesifikasi Utama</h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
@@ -1447,7 +1390,6 @@ const Homepage = () => {
                       ))}
                     </div>
                   </motion.div>
-
                   <motion.a
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
