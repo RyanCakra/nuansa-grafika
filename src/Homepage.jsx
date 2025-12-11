@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
@@ -43,6 +43,9 @@ const Homepage = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
   const [xPosition, setXPosition] = useState(0);
+  const animationRef = useRef(null);
+  const positionRef = useRef(0);
+  const containerRef = useRef(null);
 
   // kategori
   const categories = [
@@ -61,10 +64,10 @@ const Homepage = () => {
     /* BANNER & SPANDUK */
     {
       id: 1,
-      name: 'Banner Outdoor Flexi 280gsm',
+      name: 'Banner Flexi 280gsm',
       category: 'banner',
       price: 'Mulai dari Rp 20.000 / Meter',
-      images: ['/assets/banner/b-1.jpg', '/assets/banner/b-2.jpg', '/assets/banner/b-3.jpg'],
+      images: ['/assets/banner/bv-1.jpg', '/assets/banner/bv-2.jpg', '/assets/banner/bv-3.jpg'],
       description: 'Banner outdoor berkualitas untuk acara, promosi, atau branding toko. Harga tergantung jenis bahan',
       details: 'Tidak ada minimum pemesanan. Lama pengerjaan 1–2 hari kerja.',
       specs: ['Flexi 280gsm', 'Cetak Full Color', 'Tahan Cuaca', 'Finishing Mata Ayam Opsional', 'Ukuran Custom'],
@@ -74,7 +77,7 @@ const Homepage = () => {
       name: 'Spanduk Flexi Premium 340gsm',
       category: 'banner',
       price: 'Mulai dari Rp 25.000 / Meter',
-      images: ['/assets/banner/sp-1.jpg', '/assets/banner/sp-2.jpg', '/assets/banner/sp-3.jpg'],
+      images: ['/assets/banner/bh-2.jpg', '/assets/banner/bh-1.jpg', '/assets/banner/bh-3.jpg'],
       description: 'Spanduk premium untuk kebutuhan promosi jangka panjang. Harga tergantung dari jenis bahan',
       details: 'Tidak ada minimum pemesanan. Lama pengerjaan 1–2 hari kerja.',
       specs: ['Flexi 340gsm Premium', 'Warna Tajam', 'Anti Luntur', 'Finishing Lipat/Hotpress', 'Ukuran Custom'],
@@ -84,7 +87,7 @@ const Homepage = () => {
       name: 'X-Banner Standar + Cetak',
       category: 'banner',
       price: 'Mulai dari Rp 60.000',
-      images: ['/assets/banner/xb-1.jpg', '/assets/banner/xb-2.jpg', '/assets/banner/xb-3.jpg'],
+      images: ['/assets/banner/x-1.png', '/assets/banner/x-2.jpg', '/assets/banner/x-3.jpg'],
       description: 'Paket lengkap X-Banner dengan bahan flexi standar, cocok untuk event dan display toko. Harga tergantung dari jenis bahan',
       details: 'Tidak ada minimum pemesanan. Pengerjaan 1 hari kerja.',
       specs: ['Flexi 280gsm', 'Ukuran 60x160cm', 'Frame Standar', 'Cetak Full Color'],
@@ -96,7 +99,7 @@ const Homepage = () => {
       name: 'Undangan Pernikahan Softcover Elegan',
       category: 'undangan',
       price: 'Mulai dari Rp 1.500 / pcs',
-      images: ['/assets/undangan/u1-1.jpg', '/assets/undangan/u1-2.jpg', '/assets/undangan/u1-3.jpg'],
+      images: ['/assets/undangan/sc-1.jpg', '/assets/undangan/sc-2.jpg'],
       description: 'Undangan pernikahan softcover dengan desain elegan dan modern.',
       details: 'Minimum pemesanan 100 pcs. Lama pengerjaan 5–7 hari kerja setelah approval desain.',
       specs: ['Art Paper 260gsm', 'Laminasi Doff/Glossy', 'Cetak Full Color', 'Free Desain Basic', 'Ukuran Custom'],
@@ -106,7 +109,7 @@ const Homepage = () => {
       name: 'Undangan Aqiqah & Khitan Full Color',
       category: 'undangan',
       price: 'Mulai dari Rp 1.500 / pcs',
-      images: ['/assets/undangan/u2-1.jpg', '/assets/undangan/u2-2.jpg'],
+      images: ['/assets/undangan/su-1.jpg', '/assets/undangan/su-2.jpg'],
       description: 'Undangan aqiqah dan khitan dengan tampilan ceria dan full color.',
       details: 'Minimum pemesanan 100 pcs. Lama pengerjaan 3–5 hari kerja.',
       specs: ['Art Carton 230–260gsm', 'Full Color', 'Desain Ceria', 'Finishing Glossy', 'Ukuran Custom'],
@@ -116,7 +119,7 @@ const Homepage = () => {
       name: 'Undangan Exclusive Hardcover',
       category: 'undangan',
       price: 'Mulai dari Rp 5.000 / pcs',
-      images: ['/assets/undangan/u3-1.jpg', '/assets/undangan/u3-2.jpg', '/assets/undangan/u3-3.jpg'],
+      images: ['/assets/undangan/hc-1.jpg', '/assets/undangan/hc-2.jpg', '/assets/undangan/hc-3.jpg'],
       description: 'Undangan hardcover premium dengan tampilan mewah dan elegan.',
       details: 'Minimum pemesanan 50 pcs. Lama pengerjaan 7–10 hari kerja.',
       specs: ['Hardcover Premium', 'Laminasi Doff', 'Hotprint Emas/Perak', 'Pita Opsional', 'Ukuran Custom'],
@@ -294,8 +297,8 @@ const Homepage = () => {
 
   const productItems = [
     { img: '/images/1.png', delay: 0 },
-    { img: '/images/9.jpg', delay: 0.1 },
-    { img: '/images/2.png', delay: 0.2 },
+    { img: '/images/2.png', delay: 0.1 },
+    { img: '/images/9.jpg', delay: 0.2 },
     { img: '/images/7.jpg', delay: 0.3 },
   ];
 
@@ -358,7 +361,7 @@ const Homepage = () => {
     {
       id: 5,
       question: 'Apa saja metode pembayaran yang tersedia?',
-      answer: 'Kami menerima berbagai metode pembayaran termasuk transfer bank (BCA, Mandiri, BRI), e-wallet (GoPay, OVO, Dana), dan pembayaran tunai. Untuk order dalam jumlah besar, kami juga menerima pembayaran secara bertahap.',
+      answer: 'Kami menerima berbagai metode pembayaran termasuk transfer bank (BCA, Mandiri, BNI).',
     },
   ];
 
@@ -402,19 +405,28 @@ const Homepage = () => {
   useEffect(() => {
     if (isPaused) return;
 
-    const interval = setInterval(() => {
-      setXPosition((prev) => {
-        const newPosition = prev - 1;
-        // Reset position when one full loop is completed
-        if (Math.abs(newPosition) >= loopWidth) {
-          return newPosition + loopWidth;
-        }
-        return newPosition;
-      });
-    }, 20);
+    const animate = () => {
+      positionRef.current -= 0.5;
+      const singleSetWidth = reviews.length * 344;
+      if (positionRef.current <= -singleSetWidth) {
+        positionRef.current = positionRef.current % singleSetWidth;
+      }
 
-    return () => clearInterval(interval);
-  }, [isPaused, loopWidth]);
+      if (containerRef.current) {
+        containerRef.current.style.transform = `translateX(${positionRef.current}px)`;
+      }
+
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isPaused, reviews.length]);
 
   const nextImage = () => {
     if (selectedProduct) {
@@ -730,7 +742,6 @@ const Homepage = () => {
                 </a>
               </motion.div>
             </div>
-
             {/* Right Content*/}
             <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.3, type: 'spring' }} className="relative hidden lg:flex justify-center items-center">
               <motion.div className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-6 shadow-2xl border border-amber-500/20 max-w-md w-full" whileHover={{ scale: 1.02 }} transition={{ duration: 0.3 }}>
@@ -995,7 +1006,6 @@ const Homepage = () => {
           </div>
         </div>
       </section>
-      {/* Review Section */}
       <section id="review" className="py-12 md:py-24 bg-gradient-to-b from-amber-50 to-blue-50 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-[0.03]">
@@ -1018,8 +1028,14 @@ const Homepage = () => {
 
         {/* Infinite Scroll Reviews */}
         <div className="relative">
-          <div className="flex gap-4 md:gap-6 py-4" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
-            <motion.div className="flex gap-4 md:gap-6 shrink-0" style={{ x: xPosition }}>
+          <div className="flex gap-4 md:gap-6 py-4 overflow-hidden" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+            <div
+              ref={containerRef}
+              className="flex gap-4 md:gap-6 shrink-0"
+              style={{
+                willChange: 'transform',
+              }}
+            >
               {allReviews.map((review, i) => (
                 <motion.div
                   key={i}
@@ -1033,7 +1049,7 @@ const Homepage = () => {
                     stiffness: 100,
                     damping: 20,
                   }}
-                  className="relative bg-white rounded-2xl p-4 sm:p-6 w-72 sm:w-80 shrink-0 shadow-xl border border-gray-100 hover:border-amber-300 hover:shadow-2xl transition-all duration-300 group"
+                  className="relative bg-white rounded-2xl p-4 sm:p-6 w-72 sm:w-80 shrink-0 shadow-md border border-gray-100 hover:border-amber-300 hover:shadow-2xl transition-all duration-300 group"
                   style={{ transformStyle: 'preserve-3d' }}
                 >
                   {/* Quote Icon */}
@@ -1063,12 +1079,12 @@ const Homepage = () => {
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-400/0 via-amber-400/5 to-amber-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           </div>
 
           {/* Gradient Overlays - Hidden on mobile for better visibility */}
-          <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-r from-amber-50 via-amber-50/80 to-transparent pointer-events-none z-10" />
-          <div className="hidden sm:block absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-l from-blue-50 via-blue-50/80 to-transparent pointer-events-none z-10" />
+          <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-amber-50 to-transparent pointer-events-none z-10" />
+          <div className="hidden sm:block absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-blue-50 to-transparent pointer-events-none z-10" />
         </div>
 
         {/* Bottom Stats */}
@@ -1083,7 +1099,7 @@ const Homepage = () => {
               <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-amber-600 mb-1 group-hover:scale-110 transition-transform">5.0</div>
               <div className="text-gray-600 text-xs sm:text-sm md:text-base">Rating Tertinggi</div>
             </div>
-            <div className="w-px h-12 sm:h-16 bg-gray-300" />
+            <div className="w-px hidden sm:block h-12 sm:h-16 bg-gray-300" />
             <div className="group flex-1 min-w-[100px]">
               <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-amber-600 mb-1 group-hover:scale-110 transition-transform">24/7</div>
               <div className="text-gray-600 text-xs sm:text-sm md:text-base">Layanan Support</div>

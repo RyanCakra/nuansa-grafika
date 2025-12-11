@@ -1,11 +1,13 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-brand-yellow: #f8c200;
+  /* --color-brand-yellow: #f8c200;
   --color-brand-dark: #1a1a1a;
   --color-brand-blue: #0a2a43;
 
   --color-primary: #ffc727;
   --color-secondary: #002b5b;
-  --color-accent: #ff7a00;
+  --color-accent: #ff7a00; */
+
+  --breakpoint-mobile: 375px;
 }
